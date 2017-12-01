@@ -27,6 +27,10 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
     _nextItem = 3;
   }
 
+  void _handleOptimismChanged(bool value) {
+    print("handle optimism");
+  }
+
   // Used to build list items that haven't been removed.
   Widget _buildItem(BuildContext context, int index, Animation<double> animation) {
     return new CardItem(
@@ -37,6 +41,27 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
         setState(() {
           _selectedItem = _selectedItem == _list[index] ? null : _list[index];
           _selectedItem == _list[index] ? print("Item ${index} selected") : print("Item ${index} deselected");
+	  showDialog<bool>(
+	            context: context,
+                    child: new AlertDialog(
+		      title: const Text('Change mode?'),
+		      content: const Text('Optimistic mode means everything is awesome. Are you sure you can handle that?'),
+		      actions: <Widget>[
+		        new FlatButton(
+			  child: const Text('NO THANKS'),
+			  onPressed: () {
+			    Navigator.pop(context, false);
+			    }
+			    ),
+			new FlatButton(
+			  child: const Text('AGREE'),
+			  onPressed: () {
+			    Navigator.pop(context, true);
+			    }
+			    ),
+			]
+		    )
+	  ).then<Null>(_handleOptimismChanged);
         });
       }
     );
