@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
 
-  List data;
+  List<Quiz> quizzes = new List();
 
   @override
   void initState() {
@@ -26,29 +26,32 @@ class HomePageState extends State<HomePage> {
   Future<String> getData() async {
     http.Response response = await http.post(
       Uri.encodeFull("https://quiz.zrails.com/api/quizzes.json"),
-      body: {"access_token": "4TG-5ZkpdiXELv_-kLqgPA"},
-      headers: {
-        "Accept":"application/json"
-	});
-    this.setState(() {
-      data = JSON.decode(response.body);
-    });
+        body: {"access_token": "4TG-5ZkpdiXELv_-kLqgPA"},
+        headers: {
+          "Accept":"application/json"
+	}
+      );
+      this.setState(() {
+         List l = JSON.decode(response.body);
+         l.forEach((map) {
+	   print("processing");
+           quizzes.add(new Quiz(map["name"], map["description"]));
+         });
+      });
     return "Success!";
-  }
-
-  void _handleOptimismChanged(bool value) {
-    print("handle optimism");
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("ListViews"),
+        title: new Text("Quiz Circle"),
       ),
-      body: new ListView.builder(
-        itemCount: data == null ? 0 : data.length,
-	itemBuilder: (BuildContext context,int index) { return new Card( child: new Text(data[index]["name"]) ); })
+      body: new ListView(
+	children: quizzes.map((Quiz quiz) {
+	  return new QuizListItem(quiz);
+	}).toList()
+      )
     );
   }
 
