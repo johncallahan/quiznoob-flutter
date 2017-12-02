@@ -18,6 +18,7 @@ class HomePageState extends State<HomePage> {
 
   List<Quiz> quizzes = new List();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  String _accessToken;
 
   @override
   void initState() {
@@ -54,6 +55,13 @@ class HomePageState extends State<HomePage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Quiz Circle"),
+	actions: <Widget>[
+	  new IconButton(
+	    icon: new Icon(Icons.settings),
+	    tooltip: 'Settings',
+	    onPressed: () { Navigator.of(context).pushNamed("/settings");}
+	  )
+	]
       ),
       body: new RefreshIndicator(
         key: _refreshIndicatorKey,
