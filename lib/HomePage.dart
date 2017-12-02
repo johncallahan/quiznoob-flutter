@@ -17,13 +17,14 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
 
   List<Quiz> quizzes = new List();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     this.getData();
   }
 
-  Future<String> getData() async {
+  Future<Null> getData() async {
     http.Response response = await http.post(
       Uri.encodeFull("https://quiz.zrails.com/api/quizzes.json"),
         body: {"access_token": "4TG-5ZkpdiXELv_-kLqgPA"},
@@ -32,13 +33,20 @@ class HomePageState extends State<HomePage> {
 	}
       );
       this.setState(() {
+         quizzes.clear();
          List l = JSON.decode(response.body);
          l.forEach((map) {
 	   print("processing");
            quizzes.add(new Quiz(map["id"].toInt(), map["name"], map["description"]));
          });
       });
-    return "Success!";
+  }
+
+  Future<Null> _handleRefresh() {
+    final Completer<Null> completer = new Completer<Null>();
+    this.getData();
+    new Timer(const Duration(seconds: 3), () { completer.complete(null); });
+    return completer.future.then((_) { print("completed refreshing"); });
   }
 
   @override
@@ -47,11 +55,14 @@ class HomePageState extends State<HomePage> {
       appBar: new AppBar(
         title: new Text("Quiz Circle"),
       ),
-      body: new ListView(
+      body: new RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+	child: new ListView(
 	children: quizzes.map((Quiz quiz) {
 	  return new QuizListItem(quiz);
 	}).toList()
-      )
+      ))
     );
   }
 
