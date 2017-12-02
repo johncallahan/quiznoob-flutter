@@ -35,7 +35,7 @@ class HomePageState extends State<HomePage> {
          List l = JSON.decode(response.body);
          l.forEach((map) {
 	   print("processing");
-           quizzes.add(new Quiz(map["name"], map["description"]));
+           quizzes.add(new Quiz(map["id"].toInt(), map["name"], map["description"]));
          });
       });
     return "Success!";

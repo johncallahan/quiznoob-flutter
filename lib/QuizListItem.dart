@@ -13,33 +13,21 @@ class QuizListItem extends StatelessWidget {
       padding: new EdgeInsets.all(16.0),
       child: new Row(children: [
         new Expanded(
-            child: new Column(children: [
-              new Text(
-                quiz.name,
-                textScaleFactor: 0.9,
-                textAlign: TextAlign.left,
+            child: new ListTile(
+              title: new Text(quiz.name,
+                  style: new TextStyle(fontWeight: FontWeight.w500)),
+              subtitle: new Text(quiz.description,
+                  style: new TextStyle(fontWeight: FontWeight.w500)),
+              leading: new Icon(
+                Icons.contact_phone,
+                color: Colors.blue[500],
               ),
-              new Text(
-                quiz.description,
-                textScaleFactor: 0.8,
-                textAlign: TextAlign.right,
-                style: new TextStyle(
-                  color: Colors.grey,
-                ),
+              trailing: new Icon(
+                Icons.contact_phone,
+                color: Colors.blue[500],
               ),
-            ], crossAxisAlignment: CrossAxisAlignment.start)),
-        new Expanded(
-            child: new Text(
-              "XX",
-              textScaleFactor: 2.0,
-              textAlign: TextAlign.center,
-            )),
-        new Expanded(
-            child: new Text(
-              "YY",
-              textScaleFactor: 1.6,
-              textAlign: TextAlign.right,
-            )),
+	      onTap: () { print("tapped ${quiz.id}"); }
+            ))
       ]),
     );
   }
