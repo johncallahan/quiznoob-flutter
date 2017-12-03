@@ -8,6 +8,7 @@ import 'package:quizcircle/model/Quiz.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
+
   final String title;
 
   @override
@@ -54,23 +55,17 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Quiz Circle"),
-	actions: <Widget>[
-	  new IconButton(
-	    icon: new Icon(Icons.settings),
-	    tooltip: 'Settings',
-	    onPressed: () { Navigator.of(context).pushNamed("/settings");}
-	  )
-	]
+        title: new Text(widget.title),
       ),
       body: new RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
 	child: new ListView(
-	children: quizzes.map((Quiz quiz) {
-	  return new QuizListItem(quiz);
-	}).toList()
-      ))
+	  children: quizzes.map((Quiz quiz) {
+	    return new QuizListItem(quiz);
+	  }).toList()
+        )
+      )
     );
   }
 
