@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         "/settings": (BuildContext context) => new AppSettings(),
         "/All Quizzes": (BuildContext context) => new HomePage(title: "All Quizzes"),
         "/Mathematics": (BuildContext context) => new HomePage(title: "Mathematics"),
+        "/Geography": (BuildContext context) => new HomePage(title: "Geography"),
         "/World History": (BuildContext context) => new HomePage(title: "World History"),
         "/US History": (BuildContext context) => new HomePage(title: "US History"),
         "/Science": (BuildContext context) => new HomePage(title: "Science"),

@@ -29,7 +29,7 @@ class HomePageState extends State<HomePage> {
   Future<Null> getData() async {
     http.Response response = await http.post(
       Uri.encodeFull("https://quiz.zrails.com/api/quizzes.json"),
-        body: {"access_token": "4TG-5ZkpdiXELv_-kLqgPA"},
+        body: widget.title == "All Quizzes" ? {"access_token": "4TG-5ZkpdiXELv_-kLqgPA"} : {"access_token": "4TG-5ZkpdiXELv_-kLqgPA", "subject": widget.title},
         headers: {
           "Accept":"application/json"
 	}

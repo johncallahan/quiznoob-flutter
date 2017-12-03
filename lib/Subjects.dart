@@ -4,6 +4,7 @@ import 'package:quizcircle/HomePage.dart';
 final List<String> subjects = <String>[
   "All Quizzes",
   "Mathematics",
+  "Geography",
   "World History",
   "US History",
   "Science",
