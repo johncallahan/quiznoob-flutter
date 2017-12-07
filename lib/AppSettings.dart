@@ -11,11 +11,32 @@ class AppSettings extends StatefulWidget {
 
 /// State for [AppSettings] widgets.
 class _AppSettingsState extends State<AppSettings> {
-  final TextEditingController _controller = new TextEditingController();
+  final TextEditingController _urlController = new TextEditingController();
+  final TextEditingController _tokenController = new TextEditingController();
+  String _accessToken;
+  String _url;
 
   @override
-  void initState() {
-    super.initState();
+  void initState() async {
+    await this._getSharedPreferences();
+  }
+
+  _getSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.setState(() {
+      _url = prefs.getString("url");
+      _accessToken = prefs.getString("token");
+    });
+    print("get url = ${_url}");
+    print("get token = ${_accessToken}");
+    _urlController.text = _url;
+    _tokenController.text = _accessToken;
+  }
+
+  _setSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("url", _urlController.text);
+    prefs.setString("token", _tokenController.text);
   }
 
   @override
@@ -28,18 +49,25 @@ class _AppSettingsState extends State<AppSettings> {
 	    mainAxisAlignment: MainAxisAlignment.center,
 	    children: <Widget>[
 	      new TextField(
-	        controller: _controller,
+	        controller: _urlController,
 	        decoration: new InputDecoration(
-	          hintText: 'Type something',
+	          hintText: 'Url',
+	        ),
+	      ),
+	      new TextField(
+	        controller: _tokenController,
+	        decoration: new InputDecoration(
+	          hintText: 'Access token',
 	        ),
 	      ),
 	      new RaisedButton(
 	        onPressed: () {
+		  _setSharedPreferences();
 		  showDialog(
 		    context: context,
 		    child: new AlertDialog(
-		      title: new Text('What you typed'),
-		      content: new Text(_controller.text),
+		      title: new Text('Preferences confirmed'),
+		      content: new Text("url = ${_urlController.text}, access token = ${_accessToken}"),
 		    ),
 		  );
 		},

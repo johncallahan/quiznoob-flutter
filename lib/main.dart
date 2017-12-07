@@ -11,8 +11,6 @@ void main() {
 class MyApp extends StatelessWidget {
   _saveValues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("url", "http://localhost:3000");
-    prefs.setString("token", "kOaOm1EDcOCAll2svc9u4A");
   }
 
   @override
