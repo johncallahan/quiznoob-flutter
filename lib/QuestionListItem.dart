@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:quizcircle/model/Quiz.dart';
+import 'package:quizcircle/model/Question.dart';
 
-class QuizListItem extends StatelessWidget {
-  final Quiz quiz;
+class QuestionListItem extends StatelessWidget {
+  final Question question;
 
-  QuizListItem(this.quiz);
+  QuestionListItem(this.question);
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +13,7 @@ class QuizListItem extends StatelessWidget {
       child: new Row(children: [
         new Expanded(
             child: new ListTile(
-              title: new Text(quiz.name,
-                  style: new TextStyle(fontWeight: FontWeight.w500)),
-              subtitle: new Text(quiz.description,
+              title: new Text(question.name,
                   style: new TextStyle(fontWeight: FontWeight.w500)),
               leading: new Icon(
                 Icons.contact_phone,
@@ -25,7 +23,7 @@ class QuizListItem extends StatelessWidget {
                 Icons.contact_phone,
                 color: Colors.blue[500],
               ),
-	      onTap: () { Navigator.of(context).pushNamed("/quiz"); }
+	      onTap: () { print("tapped ${question.id}"); }
             ))
       ]),
     );

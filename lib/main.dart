@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quizcircle/HomePage.dart';
 import 'package:quizcircle/Subjects.dart';
 import 'package:quizcircle/AppSettings.dart';
+import 'package:quizcircle/QuizPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         "/Physics": (BuildContext context) => new HomePage(title: "Physics"),
         "/Astronomy": (BuildContext context) => new HomePage(title: "Astronomy"),
         "/Biology": (BuildContext context) => new HomePage(title: "Biology"),
+	"/quiz": (BuildContext context) => new QuizPage(title: "Quiz"),
       }
     );
   }
