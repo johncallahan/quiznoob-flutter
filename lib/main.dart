@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:quizcircle/HomePage.dart';
 import 'package:quizcircle/Subjects.dart';
 import 'package:quizcircle/AppSettings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(new MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  _saveValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("url", "http://localhost:3000");
+    prefs.setString("token", "kOaOm1EDcOCAll2svc9u4A");
+  }
+
   @override
   Widget build(BuildContext context) {
+    _saveValues();
     return new MaterialApp(
       title: 'Quiz Circle',
       theme: new ThemeData(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Opens an [AlertDialog] showing what the user typed.
 class AppSettings extends StatefulWidget {
@@ -11,6 +12,11 @@ class AppSettings extends StatefulWidget {
 /// State for [AppSettings] widgets.
 class _AppSettingsState extends State<AppSettings> {
   final TextEditingController _controller = new TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

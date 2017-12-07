@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/QuizListItem.dart';
 import 'package:quizcircle/model/Quiz.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -20,16 +21,34 @@ class HomePageState extends State<HomePage> {
   List<Quiz> quizzes = new List();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
+  String _url;
 
   @override
-  void initState() {
+  void initState() async {
+    await this.getSharedPreferences();
     this.getData();
   }
 
+  getSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.setState(() {
+      _url = prefs.getString("url");
+      _accessToken = prefs.getString("token");
+    });
+    print("get url = ${_url}");
+    print("get token = ${_accessToken}");
+  }
+
   Future<Null> getData() async {
+    print("data url = ${_url}");
+    print("data token = ${_accessToken}");
     http.Response response = await http.post(
-      Uri.encodeFull("https://quiz.zrails.com/api/quizzes.json"),
-        body: widget.title == "All Quizzes" ? {"access_token": "4TG-5ZkpdiXELv_-kLqgPA"} : {"access_token": "4TG-5ZkpdiXELv_-kLqgPA", "subject": widget.title},
+//      Uri.encodeFull("https://quiz.zrails.com/api/quizzes.json"),
+//      Uri.encodeFull("http://localhost:3000/api/quizzes.json"),
+      Uri.encodeFull("${_url}/api/quizzes.json"),
+//        body: widget.title == "All Quizzes" ? {"access_token": "4TG-5ZkpdiXELv_-kLqgPA"} : {"access_token": "4TG-5ZkpdiXELv_-kLqgPA", "subject": widget.title},
+//        body: widget.title == "All Quizzes" ? {"access_token": "kOaOm1EDcOCAll2svc9u4A"} : {"access_token": "kOaOm1EDcOCAll2svc9u4A", "subject": widget.title},
+          body: widget.title == "All Quizzes" ? {"access_token": _accessToken} : {"access_token": _accessToken, "subject": widget.title},
         headers: {
           "Accept":"application/json"
 	}
@@ -53,20 +72,41 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
-      ),
-      body: new RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-	child: new ListView(
-	  children: quizzes.map((Quiz quiz) {
-	    return new QuizListItem(quiz);
-	  }).toList()
+    print("number of '${widget.title}' quizzes = ${quizzes.length}");
+    if(quizzes.length > 0) {
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text(widget.title),
+        ),
+        body: new RefreshIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: _handleRefresh,
+          child: new ListView(
+            children: quizzes.map((Quiz quiz) {
+	      return new QuizListItem(quiz);
+	    }).toList()
+          )
         )
-      )
-    );
+      );
+    } else {
+      print("no quizzes");
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text(widget.title),
+        ),
+        body: new Container(
+          child: new Center(
+            child: new Column(
+	      mainAxisAlignment: MainAxisAlignment.center,
+	      children: <Widget>[
+	        new Icon(Icons.favorite),
+	        new Text("Sorry, no '${widget.title}' quizzes!"),
+	      ]
+            )
+          )
+        )
+      );
+    }
   }
-
 }
+

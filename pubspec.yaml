@@ -2,6 +2,7 @@ name: quizcircle
 description: A new Flutter application.
 
 dependencies:
+  shared_preferences: "^0.2.4+1"
   flutter:
     sdk: flutter
 
