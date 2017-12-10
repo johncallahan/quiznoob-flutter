@@ -1,16 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/QuestionListItem.dart';
+import 'package:quizcircle/model/Quiz.dart';
 import 'package:quizcircle/model/Question.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionPage extends StatefulWidget {
-  QuestionPage({Key key, this.title}) : super(key: key);
+  QuestionPage(this.quiz);
 
-  final String title;
+  final Quiz quiz;
 
   @override
   QuestionPageState createState() => new QuestionPageState();
@@ -18,7 +20,7 @@ class QuestionPage extends StatefulWidget {
 
 class QuestionPageState extends State<QuestionPage> {
 
-  List<Question> questions = new List();
+  Question question;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
@@ -43,20 +45,12 @@ class QuestionPageState extends State<QuestionPage> {
     print("data url = ${_url}");
     print("data token = ${_accessToken}");
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/questions.json"),
-          body: {"access_token": _accessToken, "quiz": "1"},
+      Uri.encodeFull("${_url}/api/question/${widget.quiz.unattempted[0]}.json"),
+          body: {"access_token": _accessToken},
         headers: {
           "Accept":"application/json"
 	}
       );
-      this.setState(() {
-         questions.clear();
-         List l = JSON.decode(response.body);
-         l.forEach((map) {
-	   print("processing");
-           questions.add(new Question(map["id"].toInt(), map["name"], map["description"]));
-         });
-      });
   }
 
   Future<Null> _handleRefresh() {
@@ -68,41 +62,22 @@ class QuestionPageState extends State<QuestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("number of '${widget.title}' questions = ${questions.length}");
-    if(questions.length > 0) {
-      return new Scaffold(
-        appBar: new AppBar(
-          title: new Text(widget.title),
-        ),
-        body: new RefreshIndicator(
-          key: _refreshIndicatorKey,
-          onRefresh: _handleRefresh,
-          child: new ListView(
-            children: questions.map((Question question) {
-	      return new QuestionListItem(question);
-	    }).toList()
+    print("no answers");
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(widget.quiz.name),
+      ),
+      body: new Container(
+        child: new Center(
+          child: new Column(
+	    mainAxisAlignment: MainAxisAlignment.center,
+	    children: <Widget>[
+	      new Icon(Icons.favorite),
+	      new Text("Unattempted questions are ${widget.quiz.unattempted}"),
+	    ]
           )
         )
-      );
-    } else {
-      print("no questions");
-      return new Scaffold(
-        appBar: new AppBar(
-          title: new Text(widget.title),
-        ),
-        body: new Container(
-          child: new Center(
-            child: new Column(
-	      mainAxisAlignment: MainAxisAlignment.center,
-	      children: <Widget>[
-	        new Icon(Icons.favorite),
-	        new Text("Sorry, no '${widget.title}' questions!"),
-	      ]
-            )
-          )
-        )
-      );
-    }
+      )
+    );
   }
 }
-

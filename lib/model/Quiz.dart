@@ -3,7 +3,7 @@ class Quiz {
   String name;
   String description;
   int numquestions;
-  int unattempted;
+  List<int> unattempted;
 
   Quiz(this.id, this.name, this.description, this.numquestions, this.unattempted);
 }

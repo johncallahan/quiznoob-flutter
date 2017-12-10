@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:quizcircle/QuestionPage.dart';
 import 'package:quizcircle/QuestionListItem.dart';
 import 'package:quizcircle/model/Quiz.dart';
 import 'package:quizcircle/model/Question.dart';
@@ -19,7 +20,7 @@ class QuizPage extends StatefulWidget {
 
 class QuizPageState extends State<QuizPage> {
 
-  Map quiz = new Map();
+  Quiz quiz;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
@@ -51,8 +52,9 @@ class QuizPageState extends State<QuizPage> {
 	}
       );
       this.setState(() {
-         quiz = JSON.decode(response.body);
-	 print("quiz is ${quiz['name']}");
+         Map map = JSON.decode(response.body);
+	 Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["unattempted"]);
+	 print("quiz NAME is ${quiz.name}");
       });
   }
 
@@ -65,9 +67,8 @@ class QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    if(quiz['name'] != null) {
-    print("number of ${quiz['name']} questions = ${quiz['numquestions']}");
-    if(quiz['numquestions'] > 0) {
+    print("number of ${widget.quiz.name} questions = ${widget.quiz.numquestions}");
+    if(widget.quiz.numquestions > 0) {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.quiz.name),
@@ -77,8 +78,17 @@ class QuizPageState extends State<QuizPage> {
             child: new Column(
 	      mainAxisAlignment: MainAxisAlignment.center,
 	      children: <Widget>[
-	        new Icon(Icons.favorite),
-	        new Text("${quiz['numquestions']} questions!"),
+	        new IconButton(
+		  icon: new Icon(Icons.favorite),
+		  tooltip: 'Start',
+		  iconSize: 70.0,
+		  onPressed: () {
+		    Navigator.pushReplacement(context, new MaterialPageRoute(
+		      builder: (BuildContext context) => new QuestionPage(widget.quiz),
+		    ));
+		  }
+		),
+	        new Text("${widget.quiz.unattempted.length}/${widget.quiz.numquestions} questions!"),
 	      ]
             )
           )
@@ -103,24 +113,9 @@ class QuizPageState extends State<QuizPage> {
         )
       );
     }
-    } else {
-      return new Scaffold(
-        appBar: new AppBar(
-          title: new Text(widget.quiz.name),
-        ),
-        body: new Container(
-          child: new Center(
-            child: new Column(
-	      mainAxisAlignment: MainAxisAlignment.center,
-	      children: <Widget>[
-	        new Icon(Icons.favorite),
-	        new Text("loading ...!"),
-	      ]
-            )
-          )
-        )
-      );
-    }
   }
 }
+
+
+
 

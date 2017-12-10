@@ -22,7 +22,7 @@ class QuizListItem extends StatelessWidget {
                 Icons.contact_phone,
                 color: Colors.blue[500],
               ),
-              trailing: new Text("${quiz.unattempted}/${quiz.numquestions}",
+              trailing: new Text("${quiz.unattempted.length}/${quiz.numquestions}",
                   style: new TextStyle(fontWeight: FontWeight.w500)),
 	      onTap: () { 
 	        Navigator.push(context, new MaterialPageRoute(
