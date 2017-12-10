@@ -4,13 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/QuestionListItem.dart';
+import 'package:quizcircle/model/Quiz.dart';
 import 'package:quizcircle/model/Question.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuizPage extends StatefulWidget {
-  QuizPage({Key key, this.title}) : super(key: key);
+  QuizPage(this.quiz);
 
-  final String title;
+  final Quiz quiz;
 
   @override
   QuizPageState createState() => new QuizPageState();
@@ -43,7 +44,7 @@ class QuizPageState extends State<QuizPage> {
     print("data url = ${_url}");
     print("data token = ${_accessToken}");
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/quizzes/1.json"),
+      Uri.encodeFull("${_url}/api/quizzes/${widget.quiz.id}.json"),
         body: {"access_token": _accessToken},
         headers: {
           "Accept":"application/json"
@@ -69,7 +70,7 @@ class QuizPageState extends State<QuizPage> {
     if(quiz['numquestions'] > 0) {
       return new Scaffold(
         appBar: new AppBar(
-          title: new Text(widget.title),
+          title: new Text(widget.quiz.name),
         ),
         body: new Container(
           child: new Center(
@@ -87,7 +88,7 @@ class QuizPageState extends State<QuizPage> {
       print("no questions");
       return new Scaffold(
         appBar: new AppBar(
-          title: new Text(widget.title),
+          title: new Text(widget.quiz.name),
         ),
         body: new Container(
           child: new Center(
@@ -105,7 +106,7 @@ class QuizPageState extends State<QuizPage> {
     } else {
       return new Scaffold(
         appBar: new AppBar(
-          title: new Text(widget.title),
+          title: new Text(widget.quiz.name),
         ),
         body: new Container(
           child: new Center(

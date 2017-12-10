@@ -22,11 +22,11 @@ class QuizListItem extends StatelessWidget {
                 Icons.contact_phone,
                 color: Colors.blue[500],
               ),
-              trailing: new Text("Hello",
+              trailing: new Text("${quiz.unattempted}/${quiz.numquestions}",
                   style: new TextStyle(fontWeight: FontWeight.w500)),
 	      onTap: () { 
 	        Navigator.push(context, new MaterialPageRoute(
-		  builder: (BuildContext context) => new QuizPage(title: quiz.name),
+		  builder: (BuildContext context) => new QuizPage(quiz),
 		));
 	      }
             ))
