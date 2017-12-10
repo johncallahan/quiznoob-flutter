@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizcircle/QuizPage.dart';
 import 'package:quizcircle/model/Quiz.dart';
 
 class QuizListItem extends StatelessWidget {
@@ -21,11 +22,13 @@ class QuizListItem extends StatelessWidget {
                 Icons.contact_phone,
                 color: Colors.blue[500],
               ),
-              trailing: new Icon(
-                Icons.contact_phone,
-                color: Colors.blue[500],
-              ),
-	      onTap: () { Navigator.of(context).pushNamed("/quiz"); }
+              trailing: new Text("Hello",
+                  style: new TextStyle(fontWeight: FontWeight.w500)),
+	      onTap: () { 
+	        Navigator.push(context, new MaterialPageRoute(
+		  builder: (BuildContext context) => new QuizPage(title: quiz.name),
+		));
+	      }
             ))
       ]),
     );

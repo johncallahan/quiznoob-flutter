@@ -18,7 +18,7 @@ class QuizPage extends StatefulWidget {
 
 class QuizPageState extends State<QuizPage> {
 
-  List<Question> questions = new List();
+  Map quiz = new Map();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
@@ -50,11 +50,8 @@ class QuizPageState extends State<QuizPage> {
 	}
       );
       this.setState(() {
-         questions.clear();
-         List l = JSON.decode(response.body);
-         l.forEach((map) {
-           questions.add(new Question(map["id"].toInt(), map["name"]));
-         });
+         quiz = JSON.decode(response.body);
+	 print("quiz is ${quiz['name']}");
       });
   }
 
@@ -67,19 +64,22 @@ class QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("number of '${widget.title}' questions = ${questions.length}");
-    if(questions.length > 0) {
+    if(quiz['name'] != null) {
+    print("number of ${quiz['name']} questions = ${quiz['numquestions']}");
+    if(quiz['numquestions'] > 0) {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.title),
         ),
-        body: new RefreshIndicator(
-          key: _refreshIndicatorKey,
-          onRefresh: _handleRefresh,
-          child: new ListView(
-            children: questions.map((Question question) {
-	      return new QuestionListItem(question);
-	    }).toList()
+        body: new Container(
+          child: new Center(
+            child: new Column(
+	      mainAxisAlignment: MainAxisAlignment.center,
+	      children: <Widget>[
+	        new Icon(Icons.favorite),
+	        new Text("${quiz['numquestions']} questions!"),
+	      ]
+            )
           )
         )
       );
@@ -96,6 +96,24 @@ class QuizPageState extends State<QuizPage> {
 	      children: <Widget>[
 	        new Icon(Icons.favorite),
 	        new Text("Sorry, no questions!"),
+	      ]
+            )
+          )
+        )
+      );
+    }
+    } else {
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text(widget.title),
+        ),
+        body: new Container(
+          child: new Center(
+            child: new Column(
+	      mainAxisAlignment: MainAxisAlignment.center,
+	      children: <Widget>[
+	        new Icon(Icons.favorite),
+	        new Text("loading ...!"),
 	      ]
             )
           )

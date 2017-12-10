@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizcircle/HomePage.dart';
+import 'package:quizcircle/AppSettings.dart';
 
 final List<String> subjects = <String>[
   "All Quizzes",
@@ -37,7 +38,11 @@ class SubjectListItem extends StatelessWidget {
                 Icons.contact_phone,
                 color: Colors.blue[500],
               ),
-	      onTap: () { Navigator.of(context).pushNamed("/${title}"); }
+	      onTap: () {
+	        Navigator.push(context, new MaterialPageRoute(
+		  builder: (BuildContext context) => new HomePage(title: title),
+		));
+              }
             ))
       ]),
     );
@@ -55,7 +60,11 @@ class Subjects extends StatelessWidget {
           new IconButton(
    	    icon: new Icon(Icons.settings),
 	    tooltip: 'Settings',
-	    onPressed: () { Navigator.of(context).pushNamed("/settings"); }
+	    onPressed: () {
+	      Navigator.push(context, new MaterialPageRoute(
+	        builder: (BuildContext context) => new AppSettings(),
+              ));
+	    }
           )
         ]),
       body: new ListView(
