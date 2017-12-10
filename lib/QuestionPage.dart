@@ -45,12 +45,16 @@ class QuestionPageState extends State<QuestionPage> {
     print("data url = ${_url}");
     print("data token = ${_accessToken}");
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/question/${widget.quiz.unattempted[0]}.json"),
+      Uri.encodeFull("${_url}/api/questions/${widget.quiz.unattempted[0]}.json"),
           body: {"access_token": _accessToken},
         headers: {
           "Accept":"application/json"
 	}
       );
+    this.setState(() {
+      Map map = JSON.decode(response.body);
+      question = new Question(map["id"].toInt(),map["name"]);
+    });
   }
 
   Future<Null> _handleRefresh() {
@@ -62,22 +66,41 @@ class QuestionPageState extends State<QuestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("no answers");
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.quiz.name),
-      ),
-      body: new Container(
-        child: new Center(
-          child: new Column(
-	    mainAxisAlignment: MainAxisAlignment.center,
-	    children: <Widget>[
-	      new Icon(Icons.favorite),
-	      new Text("Unattempted questions are ${widget.quiz.unattempted}"),
-	    ]
-          )
-        )
-      )
-    );
+    if(question != null) {
+      print("the question is ${question.name} with no answers");
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text(widget.quiz.name),
+        ),
+        body: new Container(
+          child: new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+	      children: <Widget>[
+	        new Text(question.name),
+		new Text("Unattempted questions are ${widget.quiz.unattempted}"),
+              ]
+	    )
+	  )
+	)
+      );
+    } else {
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text(widget.quiz.name),
+        ),
+        body: new Container(
+          child: new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+	      children: <Widget>[
+	        new Icon(Icons.access_time),
+		new Text("loading ..."),
+              ]
+	    )
+	  )
+	)
+      );
+    }
   }
 }
