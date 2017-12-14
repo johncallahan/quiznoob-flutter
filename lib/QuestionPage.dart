@@ -26,6 +26,7 @@ class QuestionPageState extends State<QuestionPage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
+  bool visibility = false;
 
   @override
   void initState() async {
@@ -70,6 +71,17 @@ class QuestionPageState extends State<QuestionPage> {
     return completer.future.then((_) { print("completed refreshing"); });
   }
 
+  _handleAnswered(Answer answer) {
+    print(answer.name);
+    setState(() {
+      answers.forEach((a) {
+        a.color = Colors.grey;
+      });
+      answer.color = Colors.purple;
+    });
+    visibility = true; 
+  }
+
   @override
   Widget build(BuildContext context) {
     if(question != null) {
@@ -83,7 +95,7 @@ class QuestionPageState extends State<QuestionPage> {
 	  child: new RaisedButton(
             child: new Text(answer.name, style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22.0)),
 	    color: answer.color,
-	    onPressed: () { print(answer.name); setState(() { answers.forEach((a) {a.color = Colors.grey;}); answer.color = Colors.green; }); } )));
+	    onPressed: () { _handleAnswered(answer); } )));
 	i = i + 1;
       });
 
@@ -106,9 +118,9 @@ class QuestionPageState extends State<QuestionPage> {
 		new Column(
 		  children: answerButtons,
 		),
-		new IconButton(
+		visibility ? new IconButton(
 		  icon: new Icon(Icons.favorite),
-		  tooltip: 'Start',
+		  tooltip: 'Check my answer, please',
 		  iconSize: 70.0,
 		  onPressed: () {
 		    widget.quiz.unattempted.removeAt(0);
@@ -116,7 +128,11 @@ class QuestionPageState extends State<QuestionPage> {
 		      builder: (BuildContext context) => new QuestionPage(widget.quiz),
 		    ));
 		  }
-		),
+		) : new IconButton(
+		  icon: new Icon(Icons.help),
+		  tooltip: 'Answer the question, please',
+		  iconSize: 70.0,
+		)
               ]
 	    )
 	  )
