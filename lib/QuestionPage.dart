@@ -4,10 +4,12 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:quizcircle/Congrats.dart';
 import 'package:quizcircle/QuestionListItem.dart';
 import 'package:quizcircle/model/Quiz.dart';
 import 'package:quizcircle/model/Answer.dart';
 import 'package:quizcircle/model/Question.dart';
+import 'package:quizcircle/model/Attempt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -27,6 +29,8 @@ class QuestionPageState extends State<QuestionPage> {
   String _accessToken;
   String _url;
   bool visibility = false;
+  Answer guess = null;
+  Attempt _attempt = null;
 
   @override
   void initState() async {
@@ -64,6 +68,21 @@ class QuestionPageState extends State<QuestionPage> {
     });
   }
 
+  Future<Null> _makeAttempt() async {
+    http.Response response = await http.post(
+      Uri.encodeFull("${_url}/api/attempts.json"),
+          body: {"access_token": _accessToken, "quiz_id": widget.quiz.id.toString(), "question_id": question.id.toString(), "answer_id": guess.id.toString()},
+        headers: {
+          "Accept":"application/json"
+	}
+      );
+    this.setState(() {
+      Map map = JSON.decode(response.body);
+      _attempt = new Attempt(map["id"].toInt(), map["result"]);
+      
+    });
+  }
+
   Future<Null> _handleRefresh() {
     final Completer<Null> completer = new Completer<Null>();
     this.getData();
@@ -74,6 +93,7 @@ class QuestionPageState extends State<QuestionPage> {
   _handleAnswered(Answer answer) {
     print(answer.name);
     setState(() {
+      guess = answer;
       answers.forEach((a) {
         a.color = Colors.grey;
       });
@@ -118,20 +138,66 @@ class QuestionPageState extends State<QuestionPage> {
 		new Column(
 		  children: answerButtons,
 		),
-		visibility ? new IconButton(
-		  icon: new Icon(Icons.favorite),
-		  tooltip: 'Check my answer, please',
-		  iconSize: 70.0,
-		  onPressed: () {
-		    widget.quiz.unattempted.removeAt(0);
-		    Navigator.pushReplacement(context, new MaterialPageRoute(
-		      builder: (BuildContext context) => new QuestionPage(widget.quiz),
-		    ));
-		  }
-		) : new IconButton(
-		  icon: new Icon(Icons.help),
-		  tooltip: 'Answer the question, please',
-		  iconSize: 70.0,
+		visibility && _attempt != null && _attempt.result ? new Column(
+		  children: <Widget>[
+		    new IconButton(
+		      icon: new Icon(Icons.insert_emoticon),
+		      tooltip: 'Correct answer!',
+		      iconSize: 70.0,
+		      onPressed: () {
+		        widget.quiz.unattempted.removeAt(0);
+			if(widget.quiz.unattempted.length > 0) {
+                          Navigator.pushReplacement(context, new MaterialPageRoute(
+			    builder: (BuildContext context) => new QuestionPage(widget.quiz),
+			    ));
+			} else {
+                          Navigator.pushReplacement(context, new MaterialPageRoute(
+			    builder: (BuildContext context) => new Congrats(),
+			    ));
+			}
+			}),
+                    new Text("Correct answer!"),
+                    new Text("(click to go to the next question)")]
+		) : visibility && _attempt != null ? new Column(
+		  children: <Widget>[
+		    new IconButton(
+		      icon: new Icon(Icons.error),
+		      tooltip: 'Sorry, wrong answer',
+		      iconSize: 70.0,
+		      onPressed: () {
+		        widget.quiz.unattempted.removeAt(0);
+			if(widget.quiz.unattempted.length > 0) {
+                          Navigator.pushReplacement(context, new MaterialPageRoute(
+			    builder: (BuildContext context) => new QuestionPage(widget.quiz),
+			    ));
+			} else {
+                          Navigator.pushReplacement(context, new MaterialPageRoute(
+			    builder: (BuildContext context) => new Congrats(),
+			    ));
+			}
+			}),
+                    new Text("Sorry, wrong answer!"),
+                    new Text("(click to go to the next question)")]
+		) : visibility ? new Column(
+		  children: <Widget>[
+		    new IconButton(
+		      icon: new Icon(Icons.check_circle),
+		      tooltip: 'Check my answer, please',
+		      iconSize: 70.0,
+		      onPressed: () {
+		        _makeAttempt();
+		        }),
+                    new Text("Click to check your answer"),
+                    new Text("")]
+		) : new Column(
+		  children: <Widget>[
+		    new IconButton(
+		      icon: new Icon(Icons.help),
+		      tooltip: 'Answer the question, please',
+		      iconSize: 70.0
+		      ),
+                    new Text(""),
+                    new Text("")]
 		)
               ]
 	    )

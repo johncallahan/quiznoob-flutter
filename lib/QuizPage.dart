@@ -79,7 +79,7 @@ class QuizPageState extends State<QuizPage> {
 	      mainAxisAlignment: MainAxisAlignment.center,
 	      children: <Widget>[
 	        new IconButton(
-		  icon: new Icon(Icons.favorite),
+		  icon: new Icon(Icons.directions_run),
 		  tooltip: 'Start',
 		  iconSize: 70.0,
 		  onPressed: () {
@@ -88,7 +88,8 @@ class QuizPageState extends State<QuizPage> {
 		    ));
 		  }
 		),
-	        new Text("${widget.quiz.unattempted.length}/${widget.quiz.numquestions} questions!"),
+	        new Text("${widget.quiz.unattempted.length}/${widget.quiz.numquestions} questions left"),
+	        new Text("Click icon to start the quiz!"),
 	      ]
             )
           )
@@ -115,7 +116,3 @@ class QuizPageState extends State<QuizPage> {
     }
   }
 }
-
-
-
-
