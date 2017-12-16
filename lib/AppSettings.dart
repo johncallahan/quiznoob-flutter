@@ -56,6 +56,7 @@ class _AppSettingsState extends State<AppSettings> {
         ]
       ),
       body: new Container(
+        padding: const EdgeInsets.all(35.0),
         child: new Center(
           child: new Column(
 	    mainAxisAlignment: MainAxisAlignment.center,
@@ -72,6 +73,8 @@ class _AppSettingsState extends State<AppSettings> {
 	          hintText: 'Access token',
 	        ),
 	      ),
+	      new Text("    "),
+	      new Text("    "),
 	      new RaisedButton(
 	        onPressed: () {
 		  _setSharedPreferences();

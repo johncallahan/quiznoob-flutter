@@ -199,7 +199,7 @@ class QuestionPageState extends State<QuestionPage> {
 		        _makeAttempt();
 		        }),
                     new Text("Click to check your answer"),
-                    new Text("===")]
+                    new Text("   ")]
 		) : new Column(
 		  children: <Widget>[
 		    new IconButton(
@@ -207,8 +207,8 @@ class QuestionPageState extends State<QuestionPage> {
 		      tooltip: 'Answer the question, please',
 		      iconSize: 70.0
 		      ),
-                    new Text("==="),
-                    new Text("===")]
+                    new Text("   "),
+                    new Text("   ")]
 		)
               ]
 	    )
