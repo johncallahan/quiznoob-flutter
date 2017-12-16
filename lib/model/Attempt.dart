@@ -1,5 +1,6 @@
 class Attempt {
   int id;
   bool result;
-  Attempt(this.id,this.result);
+  int answer_id;
+  Attempt(this.id,this.result,this.answer_id);
 }

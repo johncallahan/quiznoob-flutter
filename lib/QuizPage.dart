@@ -72,6 +72,16 @@ class QuizPageState extends State<QuizPage> {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.quiz.name),
+	  backgroundColor: Colors.green,
+          actions: <Widget>[
+	    new FlatButton(
+	      child: new Row(
+	        children: <Widget>[
+	          new Icon(Icons.favorite, color: Colors.red),
+	          new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	      ])
+	    ),
+          ]
         ),
         body: new Container(
           child: new Center(

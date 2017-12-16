@@ -60,7 +60,7 @@ class QuestionPageState extends State<QuestionPage> {
       );
     this.setState(() {
       Map map = JSON.decode(response.body);
-      question = new Question(map["id"].toInt(),map["name"]);
+      question = new Question(map["id"].toInt(), map["name"], map["answer_id"].toInt());
       answers = new List();
       map["answers"].forEach((answer) {
         answers.add(new Answer(answer["id"].toInt(),answer["name"],Colors.blue));
@@ -78,27 +78,28 @@ class QuestionPageState extends State<QuestionPage> {
       );
     this.setState(() {
       Map map = JSON.decode(response.body);
-      _attempt = new Attempt(map["id"].toInt(), map["result"]);
-      
+      _attempt = new Attempt(map["id"].toInt(),map["result"],map["answer_id"]);
+      answers.forEach((a) {
+	if(a.id == question.answer_id) {
+	  a.color = Colors.green;
+	} else if(a.id == guess.id) {
+	  a.color = Colors.red;
+	}
+      });
     });
-  }
-
-  Future<Null> _handleRefresh() {
-    final Completer<Null> completer = new Completer<Null>();
-    this.getData();
-    new Timer(const Duration(seconds: 3), () { completer.complete(null); });
-    return completer.future.then((_) { print("completed refreshing"); });
   }
 
   _handleAnswered(Answer answer) {
     print(answer.name);
-    setState(() {
-      guess = answer;
-      answers.forEach((a) {
-        a.color = Colors.grey;
+    if(_attempt == null) {
+      setState(() {
+        guess = answer;
+        answers.forEach((a) {
+          a.color = Colors.grey;
+        });
+        answer.color = Colors.purple;
       });
-      answer.color = Colors.purple;
-    });
+    }
     visibility = true; 
   }
 
@@ -122,6 +123,16 @@ class QuestionPageState extends State<QuestionPage> {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.quiz.name),
+	  backgroundColor: Colors.green,
+          actions: <Widget>[
+	    new FlatButton(
+	      child: new Row(
+	        children: <Widget>[
+	          new Icon(Icons.favorite, color: Colors.red),
+	          new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	      ])
+	    ),
+          ]
         ),
         body: new Container(
           child: new Center(
@@ -141,7 +152,7 @@ class QuestionPageState extends State<QuestionPage> {
 		visibility && _attempt != null && _attempt.result ? new Column(
 		  children: <Widget>[
 		    new IconButton(
-		      icon: new Icon(Icons.insert_emoticon),
+		      icon: new Icon(Icons.sentiment_very_satisfied),
 		      tooltip: 'Correct answer!',
 		      iconSize: 70.0,
 		      onPressed: () {
@@ -161,7 +172,7 @@ class QuestionPageState extends State<QuestionPage> {
 		) : visibility && _attempt != null ? new Column(
 		  children: <Widget>[
 		    new IconButton(
-		      icon: new Icon(Icons.error),
+		      icon: new Icon(Icons.sentiment_very_dissatisfied),
 		      tooltip: 'Sorry, wrong answer',
 		      iconSize: 70.0,
 		      onPressed: () {
@@ -188,7 +199,7 @@ class QuestionPageState extends State<QuestionPage> {
 		        _makeAttempt();
 		        }),
                     new Text("Click to check your answer"),
-                    new Text("")]
+                    new Text("===")]
 		) : new Column(
 		  children: <Widget>[
 		    new IconButton(
@@ -196,8 +207,8 @@ class QuestionPageState extends State<QuestionPage> {
 		      tooltip: 'Answer the question, please',
 		      iconSize: 70.0
 		      ),
-                    new Text(""),
-                    new Text("")]
+                    new Text("==="),
+                    new Text("===")]
 		)
               ]
 	    )

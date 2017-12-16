@@ -57,6 +57,13 @@ class Subjects extends StatelessWidget {
         title: new Text("Subjects"),
         backgroundColor: Colors.green,
         actions: <Widget>[
+	  new FlatButton(
+	    child: new Row(
+	      children: <Widget>[
+	      new Icon(Icons.favorite, color: Colors.red),
+	      new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	    ])
+	  ),
           new IconButton(
    	    icon: new Icon(Icons.settings),
 	    tooltip: 'Settings',

@@ -6,7 +6,17 @@ class Congrats extends StatelessWidget {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Congrats!"),
-        backgroundColor: Colors.green),
+	  backgroundColor: Colors.green,
+          actions: <Widget>[
+	    new FlatButton(
+	      child: new Row(
+	        children: <Widget>[
+	          new Icon(Icons.favorite, color: Colors.red),
+	          new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	      ])
+	    ),
+          ]
+      ),
       body: new Container(
         child: new Center(
           child: new Column(

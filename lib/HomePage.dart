@@ -73,6 +73,16 @@ class HomePageState extends State<HomePage> {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.title),
+	  backgroundColor: Colors.green,
+          actions: <Widget>[
+	    new FlatButton(
+	      child: new Row(
+	        children: <Widget>[
+	          new Icon(Icons.favorite, color: Colors.red),
+	          new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	      ])
+	    ),
+          ]
         ),
         body: new RefreshIndicator(
           key: _refreshIndicatorKey,
