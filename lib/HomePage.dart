@@ -44,11 +44,12 @@ class HomePageState extends State<HomePage> {
     print("data token = ${_accessToken}");
     http.Response response = await http.post(
       Uri.encodeFull("${_url}/api/quizzes.json"),
-          body: widget.title == "All Quizzes" ? {"access_token": _accessToken} : {"access_token": _accessToken, "subject": widget.title},
-        headers: {
-          "Accept":"application/json"
+      body: widget.title == "All Quizzes" ? {"access_token": _accessToken} : {"access_token": _accessToken, "subject": widget.title},
+      headers: {
+        "Accept":"application/json"
 	}
-      );
+    );
+    if(response.statusCode == 200) {
       this.setState(() {
          quizzes.clear();
          List l = JSON.decode(response.body);
@@ -57,6 +58,7 @@ class HomePageState extends State<HomePage> {
            quizzes.add(new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["unattempted"]));
          });
       });
+    }
   }
 
   Future<Null> _handleRefresh() {
