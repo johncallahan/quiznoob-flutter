@@ -43,6 +43,7 @@ class SubjectPageState extends State<Subjects> {
     });
     print("data url = ${_url}");
     print("data token = ${_accessToken}");
+    if(_url != null && _accessToken != null) {
     http.Response response = await http.post(
       Uri.encodeFull("${_url}/api/subjects.json"),
       body: {"access_token": _accessToken},
@@ -57,6 +58,7 @@ class SubjectPageState extends State<Subjects> {
           subjects.add(new Subject(map["id"].toInt(), map["name"]));
 	  });
       });
+    }
     }
   }
 
