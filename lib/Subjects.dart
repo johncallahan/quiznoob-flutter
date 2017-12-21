@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizcircle/HomePage.dart';
 import 'package:quizcircle/AppSettings.dart';
+import 'package:quizcircle/RewardsPage.dart';
 
 final List<String> subjects = <String>[
   "All Quizzes",
@@ -62,7 +63,12 @@ class Subjects extends StatelessWidget {
 	      children: <Widget>[
 	      new Icon(Icons.favorite, color: Colors.red),
 	      new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-	    ])
+	    ]),
+	    onPressed: (() {
+	      Navigator.push(context, new MaterialPageRoute(
+	        builder: (BuildContext context) => new RewardsPage(),
+		));
+	    }),
 	  ),
           new IconButton(
    	    icon: new Icon(Icons.settings),
