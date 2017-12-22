@@ -31,6 +31,7 @@ class QuestionPageState extends State<QuestionPage> {
   bool visibility = false;
   Answer guess = null;
   Attempt _attempt = null;
+  int _hearts;
 
   @override
   void initState() async {
@@ -65,6 +66,7 @@ class QuestionPageState extends State<QuestionPage> {
       map["answers"].forEach((answer) {
         answers.add(new Answer(answer["id"].toInt(),answer["name"],Colors.blue));
       });
+      _hearts = map["hearts"];
     });
   }
 
@@ -129,7 +131,7 @@ class QuestionPageState extends State<QuestionPage> {
 	      child: new Row(
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 	      ])
 	    ),
           ]

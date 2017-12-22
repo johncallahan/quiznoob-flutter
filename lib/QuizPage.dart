@@ -24,6 +24,7 @@ class QuizPageState extends State<QuizPage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
+  int _hearts;
 
   @override
   void initState() async {
@@ -55,6 +56,7 @@ class QuizPageState extends State<QuizPage> {
          Map map = JSON.decode(response.body);
 	 Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["unattempted"]);
 	 print("quiz NAME is ${quiz.name}");
+	 _hearts = map["hearts"];
       });
   }
 
@@ -78,7 +80,7 @@ class QuizPageState extends State<QuizPage> {
 	      child: new Row(
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 	      ])
 	    ),
           ]

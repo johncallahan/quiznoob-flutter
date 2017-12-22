@@ -22,7 +22,7 @@ class SubjectsListItem extends StatelessWidget {
                 Icons.contact_phone,
                 color: Colors.blue[500],
               ),
-              trailing: new Text("??",
+              trailing: new Text("${subject.numquizzes}",
                   style: new TextStyle(fontWeight: FontWeight.w500)),
 	      onTap: () {
 	        Navigator.push(context, new MaterialPageRoute(

@@ -20,6 +20,7 @@ class SubjectPageState extends State<Subjects> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
+  int _hearts;
 
   @override
   void initState() async {
@@ -53,9 +54,11 @@ class SubjectPageState extends State<Subjects> {
     );
     if (response.statusCode == 200) {
       this.setState(() {
-        List l = JSON.decode(response.body);
-        l.forEach((map) {
-          subjects.add(new Subject(map["id"].toInt(), map["name"]));
+        Map map = JSON.decode(response.body);
+	List l = map["subjects"];
+	_hearts = map["hearts"];
+        l.forEach((m) {
+          subjects.add(new Subject(m["id"].toInt(), m["name"], m["numquizzes"].toInt()));
 	  });
       });
     }
@@ -81,7 +84,7 @@ class SubjectPageState extends State<Subjects> {
 	      child: new Row(
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 	      ]),
 	      onPressed: (() {
 	        Navigator.push(context, new MaterialPageRoute(

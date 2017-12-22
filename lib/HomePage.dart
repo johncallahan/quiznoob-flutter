@@ -22,6 +22,7 @@ class HomePageState extends State<HomePage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
+  int _hearts;
 
   @override
   void initState() async {
@@ -52,11 +53,13 @@ class HomePageState extends State<HomePage> {
     if(response.statusCode == 200) {
       this.setState(() {
          quizzes.clear();
-         List l = JSON.decode(response.body);
-         l.forEach((map) {
+	 Map map = JSON.decode(response.body);
+         List l = map["quizzes"];
+         l.forEach((m) {
 	   print("processing");
-           quizzes.add(new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["unattempted"]));
+           quizzes.add(new Quiz(m["id"].toInt(), m["name"], m["description"], m["numquestions"], m["unattempted"]));
          });
+	 _hearts = map["hearts"];
       });
     }
   }
@@ -81,7 +84,7 @@ class HomePageState extends State<HomePage> {
 	      child: new Row(
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 	      ])
 	    ),
           ]
