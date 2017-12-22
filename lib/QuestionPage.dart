@@ -5,6 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/Congrats.dart';
+import 'package:quizcircle/AppSettings.dart';
+import 'package:quizcircle/HomePage.dart';
+import 'package:quizcircle/RewardsPage.dart';
 import 'package:quizcircle/QuestionListItem.dart';
 import 'package:quizcircle/model/Quiz.dart';
 import 'package:quizcircle/model/Answer.dart';
@@ -13,9 +16,10 @@ import 'package:quizcircle/model/Attempt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionPage extends StatefulWidget {
-  QuestionPage(this.quiz);
+  QuestionPage(this.quiz, this.home);
 
   final Quiz quiz;
+  final HomePageState home;
 
   @override
   QuestionPageState createState() => new QuestionPageState();
@@ -67,6 +71,7 @@ class QuestionPageState extends State<QuestionPage> {
         answers.add(new Answer(answer["id"].toInt(),answer["name"],Colors.blue));
       });
       _hearts = map["hearts"];
+      widget.home.setHearts(_hearts);
     });
   }
 
@@ -88,6 +93,8 @@ class QuestionPageState extends State<QuestionPage> {
 	  a.color = Colors.red;
 	}
       });
+      _hearts = map["hearts"];
+      widget.home.setHearts(_hearts);
     });
   }
 
@@ -132,7 +139,13 @@ class QuestionPageState extends State<QuestionPage> {
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
 	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-	      ])
+	      ]),
+	      onPressed: (() {
+	        Navigator.pop(context);
+	        Navigator.pushReplacement(context, new MaterialPageRoute(
+		  builder: (BuildContext context) => new RewardsPage(widget.home.getRoot()),
+		  ));
+              }),
 	    ),
           ]
         ),
@@ -161,11 +174,12 @@ class QuestionPageState extends State<QuestionPage> {
 		        widget.quiz.unattempted.removeAt(0);
 			if(widget.quiz.unattempted.length > 0) {
                           Navigator.pushReplacement(context, new MaterialPageRoute(
-			    builder: (BuildContext context) => new QuestionPage(widget.quiz),
+			    builder: (BuildContext context) => new QuestionPage(widget.quiz, widget.home),
 			    ));
 			} else {
+			  print("FINISHED quiz ${widget.quiz.name} with CORRECT ANSWER");
                           Navigator.pushReplacement(context, new MaterialPageRoute(
-			    builder: (BuildContext context) => new Congrats(),
+			    builder: (BuildContext context) => new Congrats(widget.quiz, widget.home),
 			    ));
 			}
 			}),
@@ -181,11 +195,12 @@ class QuestionPageState extends State<QuestionPage> {
 		        widget.quiz.unattempted.removeAt(0);
 			if(widget.quiz.unattempted.length > 0) {
                           Navigator.pushReplacement(context, new MaterialPageRoute(
-			    builder: (BuildContext context) => new QuestionPage(widget.quiz),
+			    builder: (BuildContext context) => new QuestionPage(widget.quiz, widget.home),
 			    ));
 			} else {
+			  print("FINISHED quiz ${widget.quiz.name} with WRONG ANSWER");
                           Navigator.pushReplacement(context, new MaterialPageRoute(
-			    builder: (BuildContext context) => new Congrats(),
+			    builder: (BuildContext context) => new Congrats(widget.quiz, widget.home),
 			    ));
 			}
 			}),

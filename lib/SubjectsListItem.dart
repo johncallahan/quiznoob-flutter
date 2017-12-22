@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:quizcircle/HomePage.dart';
+import 'package:quizcircle/Subjects.dart';
 import 'package:quizcircle/model/Subject.dart';
 
 class SubjectsListItem extends StatelessWidget {
   final Subject subject;
+  final SubjectPageState root;
 
-  SubjectsListItem(this.subject);
+  SubjectsListItem(this.subject,this.root);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class SubjectsListItem extends StatelessWidget {
                   style: new TextStyle(fontWeight: FontWeight.w500)),
 	      onTap: () {
 	        Navigator.push(context, new MaterialPageRoute(
-		  builder: (BuildContext context) => new HomePage(title: subject.name),
+		  builder: (BuildContext context) => new HomePage(subject.name,root),
 		));
               }
 	    ))

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:quizcircle/HomePage.dart';
+import 'package:quizcircle/RewardsPage.dart';
 import 'package:quizcircle/QuestionPage.dart';
 import 'package:quizcircle/QuestionListItem.dart';
 import 'package:quizcircle/model/Quiz.dart';
@@ -10,9 +12,10 @@ import 'package:quizcircle/model/Question.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuizPage extends StatefulWidget {
-  QuizPage(this.quiz);
+  QuizPage(this.quiz, this.home);
 
   final Quiz quiz;
+  final HomePageState home;
 
   @override
   QuizPageState createState() => new QuizPageState();
@@ -54,7 +57,7 @@ class QuizPageState extends State<QuizPage> {
       );
       this.setState(() {
          Map map = JSON.decode(response.body);
-	 Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["unattempted"]);
+	 Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["unattempted"], map["points"].toInt());
 	 print("quiz NAME is ${quiz.name}");
 	 _hearts = map["hearts"];
       });
@@ -81,7 +84,13 @@ class QuizPageState extends State<QuizPage> {
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
 	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-	      ])
+	      ]),
+	      onPressed: (() {
+	        Navigator.pop(context);
+	        Navigator.pushReplacement(context, new MaterialPageRoute(
+		  builder: (BuildContext context) => new RewardsPage(widget.home.getRoot()),
+		  ));
+              }),
 	    ),
           ]
         ),
@@ -96,7 +105,7 @@ class QuizPageState extends State<QuizPage> {
 		  iconSize: 70.0,
 		  onPressed: () {
 		    Navigator.pushReplacement(context, new MaterialPageRoute(
-		      builder: (BuildContext context) => new QuestionPage(widget.quiz),
+		      builder: (BuildContext context) => new QuestionPage(widget.quiz, widget.home),
 		    ));
 		  }
 		),

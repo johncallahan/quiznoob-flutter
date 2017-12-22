@@ -3,11 +3,16 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:quizcircle/Subjects.dart';
 import 'package:quizcircle/RewardsListItem.dart';
 import 'package:quizcircle/model/Reward.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RewardsPage extends StatefulWidget {
+  RewardsPage(this.root);
+
+  final SubjectPageState root;
+
   @override
   RewardsPageState createState() => new RewardsPageState();
 }
@@ -62,6 +67,14 @@ class RewardsPageState extends State<RewardsPage> {
     return completer.future.then((_) { print("completed refreshing"); });
   }
 
+  setHearts(int points) {
+    widget.root.setHearts(points);
+  }
+
+  int getHearts() {
+    return widget.root.getHearts();
+  }
+
   @override
   Widget build(BuildContext context) {
     if(rewards.length > 0) {
@@ -74,7 +87,7 @@ class RewardsPageState extends State<RewardsPage> {
 	      child: new Row(
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("100", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	          new Text("${widget.root.getHearts()}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 	      ])
 	    ),
           ]
@@ -84,7 +97,7 @@ class RewardsPageState extends State<RewardsPage> {
           onRefresh: _handleRefresh,
           child: new ListView(
             children: rewards.map((Reward reward) {
-	      return new RewardsListItem(reward);
+	      return new RewardsListItem(reward,this);
 	    }).toList()
           )
         )

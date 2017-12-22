@@ -3,14 +3,17 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:quizcircle/Subjects.dart';
+import 'package:quizcircle/RewardsPage.dart';
 import 'package:quizcircle/QuizListItem.dart';
 import 'package:quizcircle/model/Quiz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage(this.title, this.root);
 
   final String title;
+  final SubjectPageState root;
 
   @override
   HomePageState createState() => new HomePageState();
@@ -57,11 +60,33 @@ class HomePageState extends State<HomePage> {
          List l = map["quizzes"];
          l.forEach((m) {
 	   print("processing");
-           quizzes.add(new Quiz(m["id"].toInt(), m["name"], m["description"], m["numquestions"], m["unattempted"]));
+           quizzes.add(new Quiz(m["id"].toInt(), m["name"], m["description"], m["numquestions"], m["unattempted"], m["points"].toInt()));
          });
 	 _hearts = map["hearts"];
       });
     }
+  }
+
+  SubjectPageState getRoot() {
+    return widget.root;
+  }
+
+  addHearts(int points) {
+    this.setState(() {
+      _hearts += points;
+      widget.root.setHearts(_hearts);
+    });
+  }
+
+  setHearts(int points) {
+    this.setState(() {
+      _hearts = points;
+      widget.root.setHearts(points);
+    });
+  }
+
+  int getHearts() {
+    return _hearts;
   }
 
   Future<Null> _handleRefresh() {
@@ -85,7 +110,13 @@ class HomePageState extends State<HomePage> {
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
 	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-	      ])
+	      ]),
+	      onPressed: (() {
+	        Navigator.pop(context);
+	        Navigator.push(context, new MaterialPageRoute(
+		  builder: (BuildContext context) => new RewardsPage(widget.root),
+		  ));
+              }),
 	    ),
           ]
         ),
@@ -94,7 +125,7 @@ class HomePageState extends State<HomePage> {
           onRefresh: _handleRefresh,
           child: new ListView(
             children: quizzes.map((Quiz quiz) {
-	      return new QuizListItem(quiz);
+	      return new QuizListItem(quiz,this);
 	    }).toList()
           )
         )

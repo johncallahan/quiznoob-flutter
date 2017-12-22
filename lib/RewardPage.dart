@@ -4,12 +4,15 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:quizcircle/RewardsPage.dart';
 import 'package:quizcircle/model/Reward.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RewardPage extends StatefulWidget {
-  RewardPage(this.reward);
+  RewardPage(this.reward, this.rewards);
+
   Reward reward;
+  RewardsPageState rewards;
 
   @override
   RewardPageState createState() => new RewardPageState();
@@ -21,7 +24,6 @@ class RewardPageState extends State<RewardPage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
-  int hearts = 99;
 
   @override
   void initState() async {
@@ -87,7 +89,7 @@ class RewardPageState extends State<RewardPage> {
 	      child: new Row(
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("${hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	          new Text("${widget.rewards.getHearts()}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 	      ])
 	    ),
           ]

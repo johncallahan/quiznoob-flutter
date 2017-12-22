@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:quizcircle/RewardPage.dart';
+import 'package:quizcircle/RewardsPage.dart';
 import 'package:quizcircle/model/Reward.dart';
 
 class RewardsListItem extends StatelessWidget {
-  final Reward reward;
+  RewardsListItem(this.reward, this.rewards);
 
-  RewardsListItem(this.reward);
+  final Reward reward;
+  final RewardsPageState rewards;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class RewardsListItem extends StatelessWidget {
 	      onTap: () {
 	        if(reward.cost > 0) {
   		  Navigator.push(context, new MaterialPageRoute(
-		    builder: (BuildContext context) => new RewardPage(reward),
+		    builder: (BuildContext context) => new RewardPage(reward,rewards)
 		  ));
 		} else {
 		  showDialog<Null>(

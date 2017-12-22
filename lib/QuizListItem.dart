@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:quizcircle/QuizPage.dart';
+import 'package:quizcircle/HomePage.dart';
 import 'package:quizcircle/model/Quiz.dart';
 
 class QuizListItem extends StatelessWidget {
   final Quiz quiz;
+  final HomePageState home;
 
-  QuizListItem(this.quiz);
+  QuizListItem(this.quiz,this.home);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class QuizListItem extends StatelessWidget {
 	      onTap: () {
 	        if(quiz.unattempted.length > 0) {
   		  Navigator.push(context, new MaterialPageRoute(
-		    builder: (BuildContext context) => new QuizPage(quiz),
+		    builder: (BuildContext context) => new QuizPage(quiz,home),
 		  ));
 		} else {
 		  showDialog<Null>(

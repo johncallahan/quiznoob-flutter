@@ -72,6 +72,16 @@ class SubjectPageState extends State<Subjects> {
     return completer.future.then((_) { print("completed refreshing"); });
   }
 
+  setHearts(int points) {
+    this.setState(() {
+      _hearts = points;
+    });
+  }
+
+  int getHearts() {
+    return _hearts;
+  }
+
   @override
   Widget build(BuildContext context) {
     if(subjects != null && subjects.length > 0) {
@@ -88,7 +98,7 @@ class SubjectPageState extends State<Subjects> {
 	      ]),
 	      onPressed: (() {
 	        Navigator.push(context, new MaterialPageRoute(
-		  builder: (BuildContext context) => new RewardsPage(),
+		  builder: (BuildContext context) => new RewardsPage(this),
 		  ));
               }),
 	    ),
@@ -108,7 +118,7 @@ class SubjectPageState extends State<Subjects> {
           onRefresh: _handleRefresh,
           child: new ListView(
             children: subjects.map((Subject subject) {
-	      return new SubjectsListItem(subject);
+	      return new SubjectsListItem(subject, this);
 	    }).toList()
           )
         )
@@ -136,7 +146,7 @@ class SubjectPageState extends State<Subjects> {
           onRefresh: _handleRefresh,
           child: new ListView(
             children: subjects.map((Subject subject) {
-	      return new SubjectsListItem(subject);
+	      return new SubjectsListItem(subject, this);
 	    }).toList()
           )
         )
