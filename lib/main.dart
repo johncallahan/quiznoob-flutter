@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizcircle/HomePage.dart';
-import 'package:quizcircle/Subjects.dart';
-import 'package:quizcircle/AppSettings.dart';
-import 'package:quizcircle/QuizPage.dart';
+import 'package:quizcircle/Splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -22,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: new Subjects(),
+      home: new Splash(),
     );
   }
 }

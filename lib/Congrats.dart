@@ -20,8 +20,6 @@ class Congrats extends StatefulWidget {
 }
 
 class _CongratsState extends State<Congrats> {
-  final TextEditingController _urlController = new TextEditingController();
-  final TextEditingController _tokenController = new TextEditingController();
   String _accessToken;
   String _url;
   Bonus _bonus;
@@ -37,16 +35,6 @@ class _CongratsState extends State<Congrats> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
-    print("get url = ${_url}");
-    print("get token = ${_accessToken}");
-    _urlController.text = _url;
-    _tokenController.text = _accessToken;
-  }
-
-  _setSharedPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("url", _urlController.text);
-    prefs.setString("token", _tokenController.text);
   }
 
   Future<Null> _collectBonus() async {

@@ -41,13 +41,9 @@ class QuizPageState extends State<QuizPage> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
-    print("get url = ${_url}");
-    print("get token = ${_accessToken}");
   }
 
   Future<Null> getData() async {
-    print("data url = ${_url}");
-    print("data token = ${_accessToken}");
     http.Response response = await http.post(
       Uri.encodeFull("${_url}/api/quizzes/${widget.quiz.id}.json"),
         body: {"access_token": _accessToken},

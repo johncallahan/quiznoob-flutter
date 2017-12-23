@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quizcircle/Subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Opens an [AlertDialog] showing what the user typed.
 class AppSettings extends StatefulWidget {
   AppSettings({Key key}) : super(key: key);
 
@@ -9,7 +9,6 @@ class AppSettings extends StatefulWidget {
   _AppSettingsState createState() => new _AppSettingsState();
 }
 
-/// State for [AppSettings] widgets.
 class _AppSettingsState extends State<AppSettings> {
   final TextEditingController _urlController = new TextEditingController();
   final TextEditingController _tokenController = new TextEditingController();
@@ -27,8 +26,6 @@ class _AppSettingsState extends State<AppSettings> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
-    print("get url = ${_url}");
-    print("get token = ${_accessToken}");
     _urlController.text = _url;
     _tokenController.text = _accessToken;
   }
@@ -74,8 +71,17 @@ class _AppSettingsState extends State<AppSettings> {
 		    child: new AlertDialog(
 		      title: new Text('Preferences confirmed'),
 		      content: new Text("url = ${_urlController.text}, access token = ${_accessToken}"),
-		    ),
-		  );
+		      actions: <Widget>[
+		        new FlatButton(
+                          child: const Text('OK'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacement(context, new MaterialPageRoute(
+                              builder: (BuildContext context) => new Subjects()));
+                          }
+                        ),
+		      ]
+		    ));
 		},
 		child: new Text('DONE'),
 	      ),
