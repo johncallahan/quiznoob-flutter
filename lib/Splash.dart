@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image/network.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/Subjects.dart';
 import 'package:quizcircle/AppSettings.dart';
@@ -43,10 +44,12 @@ class _SplashState extends State<Splash> {
           "Accept":"application/json"
 	}
       );
-      this.setState(() {
-         Map map = JSON.decode(response.body);
-	 _user = new User(map["id"].toInt(), map["name"], map["hearts"].toInt());
-      });
+      if(response.statusCode == 200) {
+        this.setState(() {
+           Map map = JSON.decode(response.body);
+  	 _user = new User(map["id"].toInt(), map["name"], map["hearts"].toInt());
+        });
+      }
   }
 
   @override
@@ -71,7 +74,10 @@ class _SplashState extends State<Splash> {
 		    ));
 		  }
                 ),
-	        new Text("Welcome ${_user.name}!"),
+	        new Text("Welcome ${_user.name}!",
+		  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
+		),
+		new Text("(click the heart to continue)")
 	      ]
             )
           )
@@ -98,6 +104,7 @@ class _SplashState extends State<Splash> {
 		  }
                 ),
 	        new Text("Welcome!"),
+		new Text("(click the heart to continue)")
 	      ]
             )
           )

@@ -95,6 +95,15 @@ class QuizPageState extends State<QuizPage> {
             child: new Column(
 	      mainAxisAlignment: MainAxisAlignment.center,
 	      children: <Widget>[
+	        new Text("Ready...",
+		  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
+		),
+	        new Text("Set...",
+		  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
+		),
+	        new Text("Go!",
+		  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
+		),
 	        new IconButton(
 		  icon: new Icon(Icons.directions_run),
 		  tooltip: 'Start',

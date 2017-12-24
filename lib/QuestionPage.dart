@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_image/network.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/Congrats.dart';
@@ -65,7 +66,7 @@ class QuestionPageState extends State<QuestionPage> {
       );
     this.setState(() {
       Map map = JSON.decode(response.body);
-      question = new Question(map["id"].toInt(), map["name"], map["answer_id"].toInt());
+      question = new Question(map["id"].toInt(), map["name"], map["answer_id"].toInt(), map["imageurl"]);
       answers = new List();
       map["answers"].forEach((answer) {
         answers.add(new Answer(answer["id"].toInt(),answer["name"],Colors.blue));
@@ -154,6 +155,20 @@ class QuestionPageState extends State<QuestionPage> {
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
 	      children: <Widget>[
+                new FlatButton(
+	          child: new Text("skip this question", style: new TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+	          onPressed: (() {
+                    int skipMe = widget.quiz.unattempted.removeAt(0);
+		    widget.quiz.unattempted.add(skipMe);
+                    Navigator.pushReplacement(context, new MaterialPageRoute(
+		      builder: (BuildContext context) => new QuestionPage(widget.quiz, widget.home),
+		    ));
+                  }),
+	        ),
+	        question.imageurl != null ? new Image(
+		  image: new NetworkImageWithRetry(question.imageurl),
+		  width: 300.0, height: 200.0,
+		) : new Container(),
 	        new Container(
 		  margin: const EdgeInsets.all(50.0),
 	          child: new Text(

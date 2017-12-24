@@ -18,7 +18,7 @@ class SubjectsListItem extends StatelessWidget {
             child: new ListTile(
               title: new Text(subject.name,
                   style: new TextStyle(fontWeight: FontWeight.w500)),
-              subtitle: new Text("???",
+              subtitle: new Text(subject.description,
                   style: new TextStyle(fontWeight: FontWeight.w500)),
               leading: new Icon(
                 Icons.contact_phone,

@@ -36,13 +36,9 @@ class RewardsPageState extends State<RewardsPage> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
-    print("get url = ${_url}");
-    print("get token = ${_accessToken}");
   }
 
   Future<Null> getData() async {
-    print("data url = ${_url}");
-    print("data token = ${_accessToken}");
     http.Response response = await http.post(
       Uri.encodeFull("${_url}/api/rewards.json"),
       body: {"access_token": _accessToken},
@@ -54,7 +50,6 @@ class RewardsPageState extends State<RewardsPage> {
       rewards.clear();
       List l = JSON.decode(response.body);
       l.forEach((map) {
-        print("processing");
         rewards.add(new Reward(map["id"].toInt(), map["name"], map["cost"].toInt(), map["description"]));
       });
     });
@@ -103,7 +98,6 @@ class RewardsPageState extends State<RewardsPage> {
         )
       );
     } else {
-      print("no rewards");
       return new Scaffold(
         appBar: new AppBar(
           title: new Text("Rewards"),

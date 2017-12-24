@@ -24,6 +24,7 @@ class RewardPageState extends State<RewardPage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
+  int _hearts;
 
   @override
   void initState() async {
@@ -37,13 +38,9 @@ class RewardPageState extends State<RewardPage> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
-    print("get url = ${_url}");
-    print("get token = ${_accessToken}");
   }
 
   Future<Null> getData() async {
-    print("data url = ${_url}");
-    print("data token = ${_accessToken}");
     http.Response response = await http.post(
       Uri.encodeFull("${_url}/api/rewards/${widget.reward.id}.json"),
       body: {"access_token": _accessToken},
@@ -54,6 +51,7 @@ class RewardPageState extends State<RewardPage> {
     this.setState(() {
       Map map = JSON.decode(response.body);
       reward = new Reward(map["id"].toInt(), map["name"], map["cost"].toInt(), map["description"]);
+      _hearts = map["hearts"].toInt();
     });
   }
 
@@ -78,8 +76,6 @@ class RewardPageState extends State<RewardPage> {
   @override
   Widget build(BuildContext context) {
     if(reward != null) {
-      print("the reward is ${reward.name}");
-
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.reward.name),
@@ -89,7 +85,7 @@ class RewardPageState extends State<RewardPage> {
 	      child: new Row(
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("${widget.rewards.getHearts()}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 	      ])
 	    ),
           ]
@@ -101,11 +97,31 @@ class RewardPageState extends State<RewardPage> {
 	      children: <Widget>[
 	        new Container(
 		  margin: const EdgeInsets.all(50.0),
-	          child: new Text(
-		    reward.name,
-		    style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0),
+	          child: new IconButton(
+                    icon: new Icon(Icons.favorite, color: Colors.red),
+                    iconSize: 70.0,
+                    onPressed: (() {
+                      showDialog<Null>(
+		        context: context,
+			child: new AlertDialog(
+			  title: const Text('Are your sure?'),
+			  content: new Text('Spend ${reward.cost} hearts?'),
+			  actions: <Widget>[
+			    new FlatButton(
+			      child: const Text('YES'),
+			      onPressed: () { print("BUY IT!"); this.setState(() { _hearts -= reward.cost; }); Navigator.of(context).pop(); }
+			    ),
+			    new FlatButton(
+			      child: const Text('NO'),
+			      onPressed: () { print("NOPE, DO NOT BUY!"); Navigator.of(context).pop(); }
+			    ),
+			  ],
+			)
+		      );
+                    }),
 		  ),
                 ),
+                new Text(reward.name,style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
               ]
 	    )
 	  )

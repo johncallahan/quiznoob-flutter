@@ -42,8 +42,6 @@ class SubjectPageState extends State<Subjects> {
     this.setState(() {
       subjects.clear();
     });
-    print("data url = ${_url}");
-    print("data token = ${_accessToken}");
     if(_url != null && _accessToken != null) {
     http.Response response = await http.post(
       Uri.encodeFull("${_url}/api/subjects.json"),
@@ -58,7 +56,7 @@ class SubjectPageState extends State<Subjects> {
 	List l = map["subjects"];
 	_hearts = map["hearts"];
         l.forEach((m) {
-          subjects.add(new Subject(m["id"].toInt(), m["name"], m["numquizzes"].toInt()));
+          subjects.add(new Subject(m["id"].toInt(), m["name"], m["description"], m["numquizzes"].toInt()));
 	  });
       });
     }
@@ -106,7 +104,7 @@ class SubjectPageState extends State<Subjects> {
    	      icon: new Icon(Icons.settings),
 	      tooltip: 'Settings',
 	      onPressed: () {
-	        Navigator.push(context, new MaterialPageRoute(
+	        Navigator.pushReplacement(context, new MaterialPageRoute(
 	          builder: (BuildContext context) => new AppSettings(),
                 ));
 	      }
@@ -134,20 +132,32 @@ class SubjectPageState extends State<Subjects> {
    	      icon: new Icon(Icons.settings),
 	      tooltip: 'Settings',
 	      onPressed: () {
-	        Navigator.push(context, new MaterialPageRoute(
+	        Navigator.pushReplacement(context, new MaterialPageRoute(
 	          builder: (BuildContext context) => new AppSettings(),
                 ));
 	      }
             )
           ]
         ),
-        body: new RefreshIndicator(
-          key: _refreshIndicatorKey,
-          onRefresh: _handleRefresh,
-          child: new ListView(
-            children: subjects.map((Subject subject) {
-	      return new SubjectsListItem(subject, this);
-	    }).toList()
+        body: new Container(
+          child: new Center(
+            child: new Column(
+	      mainAxisAlignment: MainAxisAlignment.center,
+	      children: <Widget>[
+	        new IconButton(
+	          icon: new Icon(Icons.favorite, color: Colors.red),
+		  iconSize: 70.0,
+		  onPressed: () {
+                    Navigator.pushReplacement(context, new MaterialPageRoute(
+		      builder: (BuildContext context) => new AppSettings(),
+		    ));
+		  }
+                ),
+	        new Text("Welcome!"),
+		new Text("  "),
+		new Text('(no server found ... click the \u2764 to continue)'),
+	      ]
+            )
           )
         )
       );

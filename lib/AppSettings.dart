@@ -66,22 +66,8 @@ class _AppSettingsState extends State<AppSettings> {
 	      new RaisedButton(
 	        onPressed: () {
 		  _setSharedPreferences();
-		  showDialog(
-		    context: context,
-		    child: new AlertDialog(
-		      title: new Text('Preferences confirmed'),
-		      content: new Text("url = ${_urlController.text}, access token = ${_accessToken}"),
-		      actions: <Widget>[
-		        new FlatButton(
-                          child: const Text('OK'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.pushReplacement(context, new MaterialPageRoute(
-                              builder: (BuildContext context) => new Subjects()));
-                          }
-                        ),
-		      ]
-		    ));
+                  Navigator.pushReplacement(context, new MaterialPageRoute(
+                    builder: (BuildContext context) => new Subjects()));
 		},
 		child: new Text('DONE'),
 	      ),
