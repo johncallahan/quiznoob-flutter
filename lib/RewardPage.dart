@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/RewardsPage.dart';
+import 'package:quizcircle/model/Redemption.dart';
 import 'package:quizcircle/model/Reward.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,6 +26,7 @@ class RewardPageState extends State<RewardPage> {
   String _accessToken;
   String _url;
   int _hearts;
+  Redemption redemption;
 
   @override
   void initState() async {
@@ -57,20 +59,22 @@ class RewardPageState extends State<RewardPage> {
 
   Future<Null> _redeem() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/redemption.json"),
-          body: {"access_token": _accessToken},
+      Uri.encodeFull("${_url}/api/redemptions.json"),
+          body: {"access_token": _accessToken, "reward_id": reward.id.toString()},
         headers: {
           "Accept":"application/json"
 	}
       );
-    this.setState(() {
+    if(response.statusCode == 201) {
+      this.setState(() {
+        Map map = JSON.decode(response.body);
+        redemption = new Redemption(map["id"].toInt());
+        _hearts = map["hearts"].toInt();
+      });
+    } else {
       Map map = JSON.decode(response.body);
-      redemption = new Redemption(map["id"].toInt());
-    });
-  }
-
-  _handleRedemption(Reward redeem) {
-
+      print("${map['message']}");
+    }
   }
 
   @override
@@ -109,7 +113,7 @@ class RewardPageState extends State<RewardPage> {
 			  actions: <Widget>[
 			    new FlatButton(
 			      child: const Text('YES'),
-			      onPressed: () { print("BUY IT!"); this.setState(() { _hearts -= reward.cost; }); Navigator.of(context).pop(); }
+			      onPressed: () { print("BUY IT!"); _redeem(); Navigator.of(context).pop(); }
 			    ),
 			    new FlatButton(
 			      child: const Text('NO'),

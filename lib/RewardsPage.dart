@@ -23,6 +23,7 @@ class RewardsPageState extends State<RewardsPage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
+  int _hearts;
 
   @override
   void initState() async {
@@ -48,9 +49,11 @@ class RewardsPageState extends State<RewardsPage> {
     );
     this.setState(() {
       rewards.clear();
-      List l = JSON.decode(response.body);
-      l.forEach((map) {
-        rewards.add(new Reward(map["id"].toInt(), map["name"], map["cost"].toInt(), map["description"]));
+      Map map = JSON.decode(response.body);
+      List l = map["rewards"];
+      this.setHearts(map["hearts"]);
+      l.forEach((m) {
+        rewards.add(new Reward(m["id"].toInt(), m["name"], m["cost"].toInt(), m["description"]));
       });
     });
   }
@@ -63,6 +66,9 @@ class RewardsPageState extends State<RewardsPage> {
   }
 
   setHearts(int points) {
+    this.setState(() {
+      _hearts = points;
+    });
     widget.root.setHearts(points);
   }
 
@@ -82,7 +88,7 @@ class RewardsPageState extends State<RewardsPage> {
 	      child: new Row(
 	        children: <Widget>[
 	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("${widget.root.getHearts()}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 	      ])
 	    ),
           ]
