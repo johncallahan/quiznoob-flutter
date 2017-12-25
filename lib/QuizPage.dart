@@ -54,7 +54,6 @@ class QuizPageState extends State<QuizPage> {
       this.setState(() {
          Map map = JSON.decode(response.body);
 	 Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["unattempted"], map["points"].toInt());
-	 print("quiz NAME is ${quiz.name}");
 	 _hearts = map["hearts"];
       });
   }
@@ -63,12 +62,11 @@ class QuizPageState extends State<QuizPage> {
     final Completer<Null> completer = new Completer<Null>();
     this.getData();
     new Timer(const Duration(seconds: 3), () { completer.complete(null); });
-    return completer.future.then((_) { print("completed refreshing"); });
+    return completer.future.then((_) {  });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("number of ${widget.quiz.name} questions = ${widget.quiz.numquestions}");
     if(widget.quiz.numquestions > 0) {
       return new Scaffold(
         appBar: new AppBar(
@@ -122,7 +120,6 @@ class QuizPageState extends State<QuizPage> {
         )
       );
     } else {
-      print("no questions");
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.quiz.name),

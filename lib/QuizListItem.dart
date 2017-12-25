@@ -24,8 +24,16 @@ class QuizListItem extends StatelessWidget {
                 Icons.contact_phone,
                 color: Colors.blue[500],
               ),
-              trailing: new Text("${quiz.unattempted.length}/${quiz.numquestions}",
-                  style: new TextStyle(fontWeight: FontWeight.w500)),
+              trailing: new Container(
+                  child: new Row(children: [
+		    new CircleAvatar(
+                      backgroundColor: Colors.orange.shade800,
+                      child: new Text("${quiz.points}"),
+                    ),
+		    new Text(" "),
+                    new Text("${quiz.unattempted.length}/${quiz.numquestions}",
+                      style: new TextStyle(fontWeight: FontWeight.w500)),
+                  ])),
 	      onTap: () {
 	        if(quiz.unattempted.length > 0) {
   		  Navigator.push(context, new MaterialPageRoute(

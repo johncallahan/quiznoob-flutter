@@ -33,8 +33,6 @@ class SubjectPageState extends State<Subjects> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
-    print("get url = ${_url}");
-    print("get token = ${_accessToken}");
   }
 
   Future<Null> getData() async {
@@ -67,7 +65,7 @@ class SubjectPageState extends State<Subjects> {
     final Completer<Null> completer = new Completer<Null>();
     this.getData();
     new Timer(const Duration(seconds: 3), () { completer.complete(null); });
-    return completer.future.then((_) { print("completed refreshing"); });
+    return completer.future.then((_) {  });
   }
 
   setHearts(int points) {
@@ -122,7 +120,6 @@ class SubjectPageState extends State<Subjects> {
         )
       );
     } else {
-      print("no subjects");
       return new Scaffold(
         appBar: new AppBar(
           title: new Text("Subjects"),

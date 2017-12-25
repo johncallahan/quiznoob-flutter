@@ -50,13 +50,9 @@ class QuestionPageState extends State<QuestionPage> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
-    print("get url = ${_url}");
-    print("get token = ${_accessToken}");
   }
 
   Future<Null> getData() async {
-    print("data url = ${_url}");
-    print("data token = ${_accessToken}");
     http.Response response = await http.post(
       Uri.encodeFull("${_url}/api/questions/${widget.quiz.unattempted[0]}.json"),
           body: {"access_token": _accessToken},
@@ -100,7 +96,6 @@ class QuestionPageState extends State<QuestionPage> {
   }
 
   _handleAnswered(Answer answer) {
-    print(answer.name);
     if(_attempt == null) {
       setState(() {
         guess = answer;
@@ -116,7 +111,6 @@ class QuestionPageState extends State<QuestionPage> {
   @override
   Widget build(BuildContext context) {
     if(question != null) {
-      print("the question is ${question.name} with no answers");
       List<Widget> answerButtons = new List<Widget>();
       
       int i = 0;
@@ -165,7 +159,7 @@ class QuestionPageState extends State<QuestionPage> {
 		    ));
                   }),
 	        ),
-	        question.imageurl != null ? new Image(
+	        question.imageurl != null && !question.imageurl.isEmpty ? new Image(
 		  image: new NetworkImageWithRetry(question.imageurl),
 		  width: 300.0, height: 200.0,
 		) : new Container(),
@@ -192,7 +186,6 @@ class QuestionPageState extends State<QuestionPage> {
 			    builder: (BuildContext context) => new QuestionPage(widget.quiz, widget.home),
 			    ));
 			} else {
-			  print("FINISHED quiz ${widget.quiz.name} with CORRECT ANSWER");
                           Navigator.pushReplacement(context, new MaterialPageRoute(
 			    builder: (BuildContext context) => new Congrats(widget.quiz, widget.home),
 			    ));
@@ -213,7 +206,6 @@ class QuestionPageState extends State<QuestionPage> {
 			    builder: (BuildContext context) => new QuestionPage(widget.quiz, widget.home),
 			    ));
 			} else {
-			  print("FINISHED quiz ${widget.quiz.name} with WRONG ANSWER");
                           Navigator.pushReplacement(context, new MaterialPageRoute(
 			    builder: (BuildContext context) => new Congrats(widget.quiz, widget.home),
 			    ));

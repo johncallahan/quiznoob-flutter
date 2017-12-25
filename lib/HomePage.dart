@@ -39,13 +39,9 @@ class HomePageState extends State<HomePage> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
-    print("get url = ${_url}");
-    print("get token = ${_accessToken}");
   }
 
   Future<Null> getData() async {
-    print("data url = ${_url}");
-    print("data token = ${_accessToken}");
     http.Response response = await http.post(
       Uri.encodeFull("${_url}/api/quizzes.json"),
       body: widget.title == "All Quizzes" ? {"access_token": _accessToken} : {"access_token": _accessToken, "subject": widget.title},
@@ -59,7 +55,6 @@ class HomePageState extends State<HomePage> {
 	 Map map = JSON.decode(response.body);
          List l = map["quizzes"];
          l.forEach((m) {
-	   print("processing");
            quizzes.add(new Quiz(m["id"].toInt(), m["name"], m["description"], m["numquestions"], m["unattempted"], m["points"].toInt()));
          });
 	 _hearts = map["hearts"];
@@ -93,12 +88,11 @@ class HomePageState extends State<HomePage> {
     final Completer<Null> completer = new Completer<Null>();
     this.getData();
     new Timer(const Duration(seconds: 3), () { completer.complete(null); });
-    return completer.future.then((_) { print("completed refreshing"); });
+    return completer.future.then((_) {  });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("number of '${widget.title}' quizzes = ${quizzes.length}");
     if(quizzes.length > 0) {
       return new Scaffold(
         appBar: new AppBar(
@@ -131,7 +125,6 @@ class HomePageState extends State<HomePage> {
         )
       );
     } else {
-      print("no quizzes");
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.title),
