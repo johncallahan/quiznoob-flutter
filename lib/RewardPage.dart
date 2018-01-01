@@ -105,24 +105,24 @@ class RewardPageState extends State<RewardPage> {
                     icon: new Icon(Icons.favorite, color: Colors.red),
                     iconSize: 70.0,
                     onPressed: (() {
-                      showDialog<Null>(
+                      showDialog(
 		        context: context,
 			child: new AlertDialog(
 			  title: const Text('Are your sure?'),
 			  content: new Text('Spend ${reward.cost} hearts?'),
 			  actions: <Widget>[
 			    new FlatButton(
-			      child: const Text('YES'),
-			      onPressed: () { print("BUY IT!"); _redeem(); Navigator.of(context).pop(); }
-			    ),
-			    new FlatButton(
 			      child: const Text('NO'),
 			      onPressed: () { print("NOPE, DO NOT BUY!"); Navigator.of(context).pop(); }
+			    ),
+			    new FlatButton(
+			      child: const Text('YES'),
+			      onPressed: () { print("BUY IT!"); _redeem(); Navigator.of(context).pop(); }
 			    ),
 			  ],
 			)
 		      );
-                    }),
+                    })
 		  ),
                 ),
                 new Text(reward.name,style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
