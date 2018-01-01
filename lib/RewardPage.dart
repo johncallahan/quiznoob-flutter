@@ -27,6 +27,7 @@ class RewardPageState extends State<RewardPage> {
   String _url;
   int _hearts;
   Redemption redemption;
+  bool _confirm = false;
 
   @override
   void initState() async {
@@ -66,11 +67,9 @@ class RewardPageState extends State<RewardPage> {
 	}
       );
     if(response.statusCode == 201) {
-      this.setState(() {
-        Map map = JSON.decode(response.body);
-        redemption = new Redemption(map["id"].toInt());
-        _hearts = map["hearts"].toInt();
-      });
+      Map map = JSON.decode(response.body);
+      redemption = new Redemption(map["id"].toInt());
+      widget.rewards.setHearts(map["hearts"].toInt());
     } else {
       Map map = JSON.decode(response.body);
       print("${map['message']}");
@@ -96,36 +95,60 @@ class RewardPageState extends State<RewardPage> {
         ),
         body: new Container(
           child: new Center(
-            child: new Column(
+            child: _confirm ? new Column(
               mainAxisAlignment: MainAxisAlignment.center,
 	      children: <Widget>[
 	        new Container(
 		  margin: const EdgeInsets.all(50.0),
-	          child: new IconButton(
-                    icon: new Icon(Icons.favorite, color: Colors.red),
-                    iconSize: 70.0,
-                    onPressed: (() {
-                      showDialog(
-		        context: context,
-			child: new AlertDialog(
-			  title: const Text('Are your sure?'),
-			  content: new Text('Spend ${reward.cost} hearts?'),
-			  actions: <Widget>[
-			    new FlatButton(
-			      child: const Text('NO'),
-			      onPressed: () { print("NOPE, DO NOT BUY!"); Navigator.of(context).pop(); }
-			    ),
-			    new FlatButton(
-			      child: const Text('YES'),
-			      onPressed: () { print("BUY IT!"); _redeem(); Navigator.of(context).pop(); }
-			    ),
-			  ],
-			)
-		      );
-                    })
-		  ),
+	          child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new IconButton(
+                        icon: new Icon(Icons.check_circle, color: Colors.green),
+                        iconSize: 70.0,
+                        onPressed: (() {
+                          _redeem(); Navigator.of(context).pop();
+                        })
+		      ),
+                      new IconButton(
+                        icon: new Icon(Icons.backspace, color: Colors.red),
+                        iconSize: 70.0,
+                        onPressed: (() {
+                          Navigator.of(context).pop();
+                        })
+		      ),
+                  ])
                 ),
-                new Text(reward.name,style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
+                new Text("Confirm?",style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
+              ]
+	    ) : new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+	      children: <Widget>[
+	        new Container(
+		  margin: const EdgeInsets.all(50.0),
+	          child: new Stack(
+                    alignment: const Alignment(0.0, 0.0),
+                    children: <Widget>[
+                      new IconButton(
+                        icon: new Icon(Icons.favorite, color: Colors.red),
+                        iconSize: 70.0,
+		      ),
+                      new FlatButton(
+                        child: new Text("${reward.cost}",style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22.0)),
+                        onPressed: (() {
+                          if(_hearts >= reward.cost) {
+                            this.setState(() {
+                              _confirm = true;
+                            });
+                          } else {
+                            print("not enough hearts");
+                          }
+                        })
+                      ),
+                    ]
+                  )
+                ),
+                new Text(_hearts >= reward.cost ? reward.name : "Not enough hearts",style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
               ]
 	    )
 	  )
