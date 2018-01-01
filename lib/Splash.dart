@@ -38,7 +38,7 @@ class _SplashState extends State<Splash> {
 
   Future<Null> getData() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/users.json"),
+      Uri.encodeFull("${_url}/api/user.json"),
         body: {"access_token": _accessToken},
         headers: {
           "Accept":"application/json"

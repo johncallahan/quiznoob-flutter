@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/Subjects.dart';
+import 'package:quizcircle/ProfileWidget.dart';
 import 'package:quizcircle/RewardsListItem.dart';
 import 'package:quizcircle/model/Reward.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -79,29 +80,56 @@ class RewardsPageState extends State<RewardsPage> {
   @override
   Widget build(BuildContext context) {
     if(rewards.length > 0) {
-      return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Rewards"),
-	  backgroundColor: Colors.green,
-          actions: <Widget>[
-	    new FlatButton(
-	      child: new Row(
-	        children: <Widget>[
-	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-	      ])
-	    ),
-          ]
+      return new MaterialApp(
+        home: new DefaultTabController(
+          length: 3,
+          child: new Scaffold(
+            appBar: new AppBar(
+              title: new Text("Profile"),
+              backgroundColor: Colors.green,
+	      leading: new IconButton(
+                icon: new BackButtonIcon(),
+                onPressed: () {
+		  Navigator.pop(context);
+                  Navigator.pushReplacement(context, new MaterialPageRoute(
+	            builder: (BuildContext context) => new Subjects(),
+                  ));
+		}
+	      ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Row(
+	          children: <Widget>[
+	            new Icon(Icons.favorite, color: Colors.red),
+	            new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	          ])
+	        ),
+              ],
+	      bottom: new TabBar(
+                tabs: [
+	          new Tab(text: "Rewards", icon: new Icon(Icons.favorite)),
+	          new Tab(text: "You", icon: new Icon(Icons.person)),
+	          new Tab(text: "Community", icon: new Icon(Icons.people)),
+	        ]
+	      ),
+            ),
+            body: new TabBarView(
+              children: <Widget>[
+                new RefreshIndicator(
+                  key: _refreshIndicatorKey,
+                  onRefresh: _handleRefresh,
+                  child: new ListView(
+                    children: rewards.map((Reward reward) {
+	              return new RewardsListItem(reward,this);
+	            }).toList()
+                  )
+                ),
+		new ProfileWidget(),
+		new Text("Community"),
+              ]
+            ),
+          ),
         ),
-        body: new RefreshIndicator(
-          key: _refreshIndicatorKey,
-          onRefresh: _handleRefresh,
-          child: new ListView(
-            children: rewards.map((Reward reward) {
-	      return new RewardsListItem(reward,this);
-	    }).toList()
-          )
-        )
       );
     } else {
       return new Scaffold(
