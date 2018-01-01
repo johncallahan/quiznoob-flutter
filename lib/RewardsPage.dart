@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/Subjects.dart';
 import 'package:quizcircle/ProfileWidget.dart';
+import 'package:quizcircle/OthersWidget.dart';
 import 'package:quizcircle/RewardsListItem.dart';
 import 'package:quizcircle/model/Reward.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,15 +22,16 @@ class RewardsPage extends StatefulWidget {
 class RewardsPageState extends State<RewardsPage> {
 
   List<Reward> rewards = new List();
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   String _accessToken;
   String _url;
   int _hearts;
 
   @override
   void initState() async {
-    await this.getSharedPreferences();
-    this.getData();
+    if(mounted) {
+      await this.getSharedPreferences();
+      this.getData();
+    }
   }
 
   getSharedPreferences() async {
@@ -57,13 +59,6 @@ class RewardsPageState extends State<RewardsPage> {
         rewards.add(new Reward(m["id"].toInt(), m["name"], m["cost"].toInt(), m["description"]));
       });
     });
-  }
-
-  Future<Null> _handleRefresh() {
-    final Completer<Null> completer = new Completer<Null>();
-    this.getData();
-    new Timer(const Duration(seconds: 3), () { completer.complete(null); });
-    return completer.future.then((_) { print("completed refreshing"); });
   }
 
   setHearts(int points) {
@@ -109,23 +104,19 @@ class RewardsPageState extends State<RewardsPage> {
                 tabs: [
 	          new Tab(text: "Rewards", icon: new Icon(Icons.favorite)),
 	          new Tab(text: "You", icon: new Icon(Icons.person)),
-	          new Tab(text: "Community", icon: new Icon(Icons.people)),
+	          new Tab(text: "Others", icon: new Icon(Icons.people)),
 	        ]
 	      ),
             ),
             body: new TabBarView(
               children: <Widget>[
-                new RefreshIndicator(
-                  key: _refreshIndicatorKey,
-                  onRefresh: _handleRefresh,
-                  child: new ListView(
-                    children: rewards.map((Reward reward) {
-	              return new RewardsListItem(reward,this);
-	            }).toList()
-                  )
+                new ListView(
+                  children: rewards.map((Reward reward) {
+                    return new RewardsListItem(reward,this);
+                  }).toList()
                 ),
 		new ProfileWidget(),
-		new Text("Community"),
+		new OthersWidget(),
               ]
             ),
           ),

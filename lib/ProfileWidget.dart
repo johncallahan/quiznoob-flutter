@@ -47,10 +47,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 	}
       );
       if(response.statusCode == 200) {
-        this.setState(() {
-           Map map = JSON.decode(response.body);
-  	 _user = new User(map["id"].toInt(), map["name"], map["hearts"].toInt());
-        });
+        if(mounted) {
+          this.setState(() {
+            Map map = JSON.decode(response.body);
+            _user = new User(map["id"].toInt(), map["name"], map["hearts"].toInt());
+          });
+        }
       }
   }
 
