@@ -68,7 +68,7 @@ class RewardPageState extends State<RewardPage> {
       );
     if(response.statusCode == 201) {
       Map map = JSON.decode(response.body);
-      redemption = new Redemption(map["id"].toInt());
+      redemption = new Redemption(map["id"].toInt(),map["reward"]["name"],map["cost"].toInt(),map["created_at"]);
       widget.rewards.setHearts(map["hearts"].toInt());
     } else {
       Map map = JSON.decode(response.body);
