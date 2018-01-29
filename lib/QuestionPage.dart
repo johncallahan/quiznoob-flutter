@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_image/network.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quizcircle/Congrats.dart';
@@ -160,7 +161,8 @@ class QuestionPageState extends State<QuestionPage> {
                   }),
 	        ),
 	        question.imageurl != null && !question.imageurl.isEmpty ? new Image(
-		  image: new NetworkImageWithRetry(question.imageurl),
+//                  image: new NetworkImageWithRetry(question.imageurl),
+		  image: new CachedNetworkImageProvider(question.imageurl),
 		  width: 300.0, height: 200.0,
 		) : new Container(),
 	        new Container(

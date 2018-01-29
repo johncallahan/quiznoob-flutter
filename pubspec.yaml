@@ -2,7 +2,8 @@ name: quizcircle
 description: A new Flutter application.
 
 dependencies:
-  shared_preferences: "^0.2.4+1"
+  cached_network_image: "^0.2.1"
+  shared_preferences: "^0.3.1"
   flutter_image: "^0.0.2"
   flutter:
     sdk: flutter
