@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     _saveValues();
     return new MaterialApp(
-      title: 'Quiz Circle',
+      title: 'quiznoob',
       theme: new ThemeData(
         primarySwatch: Colors.green,
       ),
