@@ -1,4 +1,4 @@
-# quizcircle
+# quiznoob
 
 A new Flutter application.
 

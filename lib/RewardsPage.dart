@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:quizcircle/Subjects.dart';
-import 'package:quizcircle/ProfileWidget.dart';
-import 'package:quizcircle/OthersWidget.dart';
-import 'package:quizcircle/RewardsListItem.dart';
-import 'package:quizcircle/model/Reward.dart';
+import 'package:quiznoob/Subjects.dart';
+import 'package:quiznoob/ProfileWidget.dart';
+import 'package:quiznoob/OthersWidget.dart';
+import 'package:quiznoob/RewardsListItem.dart';
+import 'package:quiznoob/model/Reward.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RewardsPage extends StatefulWidget {

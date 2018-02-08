@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quizcircle/RewardPage.dart';
-import 'package:quizcircle/RewardsPage.dart';
-import 'package:quizcircle/model/Reward.dart';
+import 'package:quiznoob/RewardPage.dart';
+import 'package:quiznoob/RewardsPage.dart';
+import 'package:quiznoob/model/Reward.dart';
 
 class RewardsListItem extends StatelessWidget {
   RewardsListItem(this.reward, this.rewards);

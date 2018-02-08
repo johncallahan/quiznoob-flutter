@@ -4,9 +4,9 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:quizcircle/HomePage.dart';
-import 'package:quizcircle/model/Quiz.dart';
-import 'package:quizcircle/model/Bonus.dart';
+import 'package:quiznoob/HomePage.dart';
+import 'package:quiznoob/model/Quiz.dart';
+import 'package:quiznoob/model/Bonus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Congrats extends StatefulWidget {

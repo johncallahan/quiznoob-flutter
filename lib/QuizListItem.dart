@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quizcircle/QuizPage.dart';
-import 'package:quizcircle/HomePage.dart';
-import 'package:quizcircle/model/Quiz.dart';
+import 'package:quiznoob/QuizPage.dart';
+import 'package:quiznoob/HomePage.dart';
+import 'package:quiznoob/model/Quiz.dart';
 
 class QuizListItem extends StatelessWidget {
   final Quiz quiz;

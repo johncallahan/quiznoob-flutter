@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizcircle/HomePage.dart';
-import 'package:quizcircle/model/Redemption.dart';
+import 'package:quiznoob/HomePage.dart';
+import 'package:quiznoob/model/Redemption.dart';
 
 class RedemptionListItem extends StatelessWidget {
   final Redemption redemption;

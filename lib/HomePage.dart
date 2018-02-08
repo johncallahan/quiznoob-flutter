@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:quizcircle/Subjects.dart';
-import 'package:quizcircle/RewardsPage.dart';
-import 'package:quizcircle/QuizListItem.dart';
-import 'package:quizcircle/model/Quiz.dart';
+import 'package:quiznoob/Subjects.dart';
+import 'package:quiznoob/RewardsPage.dart';
+import 'package:quiznoob/QuizListItem.dart';
+import 'package:quiznoob/model/Quiz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {

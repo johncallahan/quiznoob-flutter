@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quizcircle/HomePage.dart';
-import 'package:quizcircle/Subjects.dart';
-import 'package:quizcircle/model/Subject.dart';
+import 'package:quiznoob/HomePage.dart';
+import 'package:quiznoob/Subjects.dart';
+import 'package:quiznoob/model/Subject.dart';
 
 class SubjectsListItem extends StatelessWidget {
   final Subject subject;

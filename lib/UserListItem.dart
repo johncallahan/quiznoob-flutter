@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizcircle/HomePage.dart';
-import 'package:quizcircle/model/User.dart';
+import 'package:quiznoob/HomePage.dart';
+import 'package:quiznoob/model/User.dart';
 
 class UserListItem extends StatelessWidget {
   final User user;

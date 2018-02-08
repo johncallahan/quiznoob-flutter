@@ -6,15 +6,15 @@ import 'package:flutter_image/network.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:quizcircle/Congrats.dart';
-import 'package:quizcircle/AppSettings.dart';
-import 'package:quizcircle/HomePage.dart';
-import 'package:quizcircle/RewardsPage.dart';
-import 'package:quizcircle/QuestionListItem.dart';
-import 'package:quizcircle/model/Quiz.dart';
-import 'package:quizcircle/model/Answer.dart';
-import 'package:quizcircle/model/Question.dart';
-import 'package:quizcircle/model/Attempt.dart';
+import 'package:quiznoob/Congrats.dart';
+import 'package:quiznoob/AppSettings.dart';
+import 'package:quiznoob/HomePage.dart';
+import 'package:quiznoob/RewardsPage.dart';
+import 'package:quiznoob/QuestionListItem.dart';
+import 'package:quiznoob/model/Quiz.dart';
+import 'package:quiznoob/model/Answer.dart';
+import 'package:quiznoob/model/Question.dart';
+import 'package:quiznoob/model/Attempt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionPage extends StatefulWidget {

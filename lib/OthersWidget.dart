@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:quizcircle/Subjects.dart';
-import 'package:quizcircle/UserListItem.dart';
-import 'package:quizcircle/model/User.dart';
+import 'package:quiznoob/Subjects.dart';
+import 'package:quiznoob/UserListItem.dart';
+import 'package:quiznoob/model/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OthersWidget extends StatefulWidget {

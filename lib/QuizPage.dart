@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:quizcircle/HomePage.dart';
-import 'package:quizcircle/RewardsPage.dart';
-import 'package:quizcircle/QuestionPage.dart';
-import 'package:quizcircle/QuestionListItem.dart';
-import 'package:quizcircle/model/Quiz.dart';
-import 'package:quizcircle/model/Question.dart';
+import 'package:quiznoob/HomePage.dart';
+import 'package:quiznoob/RewardsPage.dart';
+import 'package:quiznoob/QuestionPage.dart';
+import 'package:quiznoob/QuestionListItem.dart';
+import 'package:quiznoob/model/Quiz.dart';
+import 'package:quiznoob/model/Question.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuizPage extends StatefulWidget {

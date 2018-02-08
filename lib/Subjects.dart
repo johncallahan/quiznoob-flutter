@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:quizcircle/SubjectsListItem.dart';
-import 'package:quizcircle/RewardsPage.dart';
-import 'package:quizcircle/AppSettings.dart';
-import 'package:quizcircle/model/Subject.dart';
+import 'package:quiznoob/SubjectsListItem.dart';
+import 'package:quiznoob/RewardsPage.dart';
+import 'package:quiznoob/AppSettings.dart';
+import 'package:quiznoob/model/Subject.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Subjects extends StatefulWidget {

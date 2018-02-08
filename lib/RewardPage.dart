@@ -4,9 +4,9 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:quizcircle/RewardsPage.dart';
-import 'package:quizcircle/model/Redemption.dart';
-import 'package:quizcircle/model/Reward.dart';
+import 'package:quiznoob/RewardsPage.dart';
+import 'package:quiznoob/model/Redemption.dart';
+import 'package:quiznoob/model/Reward.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RewardPage extends StatefulWidget {

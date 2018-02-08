@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizcircle/model/Question.dart';
+import 'package:quiznoob/model/Question.dart';
 
 class QuestionListItem extends StatelessWidget {
   final Question question;

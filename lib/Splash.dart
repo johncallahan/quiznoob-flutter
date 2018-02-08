@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image/network.dart';
 import 'package:http/http.dart' as http;
-import 'package:quizcircle/Subjects.dart';
-import 'package:quizcircle/AppSettings.dart';
-import 'package:quizcircle/model/User.dart';
+import 'package:quiznoob/Subjects.dart';
+import 'package:quiznoob/AppSettings.dart';
+import 'package:quiznoob/model/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {

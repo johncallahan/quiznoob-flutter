@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizcircle/Subjects.dart';
+import 'package:quiznoob/Subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSettings extends StatefulWidget {
