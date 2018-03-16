@@ -1,4 +1,4 @@
-package com.zrails.quizcircle.quizcircle;
+package com.zrails.quiznoob.quiznoob;
 
 import android.os.Bundle;
 
