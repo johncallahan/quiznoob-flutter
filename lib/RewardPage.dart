@@ -30,9 +30,8 @@ class RewardPageState extends State<RewardPage> {
   bool _confirm = false;
 
   @override
-  void initState() async {
-    await this.getSharedPreferences();
-    this.getData();
+  void initState() {
+    this.getSharedPreferences();
   }
 
   getSharedPreferences() async {
@@ -41,6 +40,7 @@ class RewardPageState extends State<RewardPage> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
+    this.getData();
   }
 
   Future<Null> getData() async {

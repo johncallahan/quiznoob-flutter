@@ -30,9 +30,8 @@ class QuizPageState extends State<QuizPage> {
   int _hearts;
 
   @override
-  void initState() async {
-    await this.getSharedPreferences();
-    this.getData();
+  void initState() {
+    this.getSharedPreferences();
   }
 
   getSharedPreferences() async {
@@ -41,6 +40,7 @@ class QuizPageState extends State<QuizPage> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
+    this.getData();
   }
 
   Future<Null> getData() async {
@@ -53,7 +53,11 @@ class QuizPageState extends State<QuizPage> {
       );
       this.setState(() {
          Map map = JSON.decode(response.body);
-	 Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["unattempted"], map["points"].toInt());
+	 Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["points"].toInt());
+	 quiz.unattempted = new List<int>();
+	 map["unattempted"].forEach((n) {
+           quiz.unattempted.add(n);
+	 });
 	 _hearts = map["hearts"];
       });
   }

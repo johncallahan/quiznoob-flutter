@@ -23,7 +23,7 @@ class SubjectPageState extends State<Subjects> {
   int _hearts;
 
   @override
-  void initState() async {
+  void initState() {
     this.getData();
   }
 

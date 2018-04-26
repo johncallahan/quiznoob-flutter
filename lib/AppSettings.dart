@@ -16,8 +16,8 @@ class _AppSettingsState extends State<AppSettings> {
   String _url;
 
   @override
-  void initState() async {
-    await this._getSharedPreferences();
+  void initState() {
+    this._getSharedPreferences();
   }
 
   _getSharedPreferences() async {

@@ -21,11 +21,8 @@ class _SplashState extends State<Splash> {
   User _user = null;
 
   @override
-  void initState() async {
-    await this._getSharedPreferences();
-    if(_url != null && _accessToken != null) {
-      this.getData();
-    }
+  void initState() {
+    this._getSharedPreferences();
   }
 
   _getSharedPreferences() async {
@@ -34,6 +31,7 @@ class _SplashState extends State<Splash> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
+    this.getData();
   }
 
   Future<Null> getData() async {

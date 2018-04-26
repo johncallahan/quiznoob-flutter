@@ -27,10 +27,9 @@ class RewardsPageState extends State<RewardsPage> {
   int _hearts;
 
   @override
-  void initState() async {
+  void initState() {
     if(mounted) {
-      await this.getSharedPreferences();
-      this.getData();
+      this.getSharedPreferences();
     }
   }
 
@@ -40,6 +39,7 @@ class RewardsPageState extends State<RewardsPage> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
+    this.getData();
   }
 
   Future<Null> getData() async {

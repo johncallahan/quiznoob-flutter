@@ -28,17 +28,17 @@ class HomePageState extends State<HomePage> {
   int _hearts;
 
   @override
-  void initState() async {
-    await this.getSharedPreferences();
-    this.getData();
+  void initState() {
+    this.getSharedPreferences();
   }
 
-  getSharedPreferences() async {
+  Future<Null> getSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     this.setState(() {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
+    this.getData();
   }
 
   Future<Null> getData() async {
@@ -55,7 +55,12 @@ class HomePageState extends State<HomePage> {
 	 Map map = JSON.decode(response.body);
          List l = map["quizzes"];
          l.forEach((m) {
-           quizzes.add(new Quiz(m["id"].toInt(), m["name"], m["description"], m["numquestions"], m["unattempted"], m["points"].toInt()));
+	   Quiz q = new Quiz(m["id"].toInt(), m["name"], m["description"], m["numquestions"], m["points"].toInt());
+	   q.unattempted = new List<int>();
+	   m["unattempted"].forEach((n) {
+	     q.unattempted.add(n);
+	   });
+           quizzes.add(q);
          });
 	 _hearts = map["hearts"];
       });

@@ -6,5 +6,5 @@ class Quiz {
   List<int> unattempted;
   int points;
 
-  Quiz(this.id, this.name, this.description, this.numquestions, this.unattempted, this.points);
+  Quiz(this.id, this.name, this.description, this.numquestions, this.points);
 }

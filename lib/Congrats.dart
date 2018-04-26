@@ -25,8 +25,8 @@ class _CongratsState extends State<Congrats> {
   Bonus _bonus;
 
   @override
-  void initState() async {
-    await this._getSharedPreferences();
+  void initState() {
+    this._getSharedPreferences();
   }
 
   _getSharedPreferences() async {

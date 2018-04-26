@@ -40,9 +40,8 @@ class QuestionPageState extends State<QuestionPage> {
   int _hearts;
 
   @override
-  void initState() async {
-    await this.getSharedPreferences();
-    this.getData();
+  void initState() {
+    this.getSharedPreferences();
   }
 
   getSharedPreferences() async {
@@ -51,6 +50,7 @@ class QuestionPageState extends State<QuestionPage> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
+    this.getData();
   }
 
   Future<Null> getData() async {

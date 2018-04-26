@@ -21,13 +21,9 @@ class _OthersWidgetState extends State<OthersWidget> {
   List<User> _users = new List();
 
   @override
-  void initState() async {
+  void initState() {
     if(mounted) {
-      await this._getSharedPreferences();
-      await new Future<Null>.delayed(new Duration(milliseconds: 1000));
-      if(_url != null && _accessToken != null) {
-        this.getData();
-      }
+      this._getSharedPreferences();
     }
   }
 
@@ -37,6 +33,7 @@ class _OthersWidgetState extends State<OthersWidget> {
       _url = prefs.getString("url");
       _accessToken = prefs.getString("token");
     });
+    this.getData();
   }
 
   Future<Null> getData() async {
