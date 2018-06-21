@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import 'package:http/http.dart' as http;
 import 'package:quiznoob/Subjects.dart';
 import 'package:quiznoob/model/User.dart';
@@ -21,11 +22,27 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   String _url;
   User _user = null;
   List<Redemption> _redemptions = new List();
+  VideoPlayerController _controller;
+  bool _isPlaying = false;
 
   @override
   void initState() {
     if(mounted) {
       this._getSharedPreferences();
+      _controller = new VideoPlayerController.network(
+//        'http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_20mb.mp4',
+//	  'https://www.dropbox.com/s/qzup7o2wxnpiqdo/big_buck_bunny_720p_20mb.mp4?raw=1',
+	  'https://www.dropbox.com/s/xmalme1banhm9pv/mytestvideo.mp4?raw=1',
+      )
+      ..addListener(() {
+        final bool isPlaying = _controller.value.isPlaying;
+        if (isPlaying != _isPlaying) {
+          setState(() {
+            _isPlaying = isPlaying;
+          });
+        }
+      })
+      ..initialize();
     }
   }
 
@@ -75,37 +92,56 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           )
         );
       } else {
-        return new Container(
-          child: new Center(
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new Text("Hello ${_user.name}!",
-                  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
-                new Stack(
-                  alignment: const Alignment(0.0, 0.0),
-                  children: <Widget>[
-                    new IconButton(
-                      icon: new Icon(Icons.favorite, color: Colors.red),
-                      iconSize: 140.0,
-                      onPressed: () {
-                      }
-                    ),
-                    new Container(
-                      child: new Text("${_user.hearts}",style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22.0))
-                    ),
-                  ]
-                ),
-                new Text("You have ${_user.hearts} hearts",
-                  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
-                new Text("and no redemptions",
-                  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
-                new Text("today",
-                  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
-              ]
-            )
-          )
-        );
+        return new Scaffold(
+          body: new Center(
+	    child: new Padding(
+	      padding: const EdgeInsets.all(10.0),
+	      child: new AspectRatio(
+	        aspectRatio: 1280 / 720,
+		child: new VideoPlayer(_controller),
+	      ),
+	    ),
+          ),
+	  floatingActionButton: new FloatingActionButton(
+	    onPressed:
+              _controller.value.isPlaying ? _controller.pause : _controller.play,
+	    child: new Icon(
+	      _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+            ),
+      	  ),
+    	);
+
+//        return new Container(
+//          child: new Center(
+//            child: new Column(
+//              mainAxisAlignment: MainAxisAlignment.center,
+//              children: <Widget>[
+//                new Text("Hello ${_user.name}!",
+//                  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
+//                new Stack(
+//                  alignment: const Alignment(0.0, 0.0),
+//                  children: <Widget>[
+//                    new IconButton(
+//                      icon: new Icon(Icons.favorite, color: Colors.red),
+//                      iconSize: 140.0,
+//                      onPressed: () {
+//                      }
+//                    ),
+//                    new Container(
+//                      child: new Text("${_user.hearts}",style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22.0))
+//                    ),
+//                  ]
+//                ),
+//                new Text("You have ${_user.hearts} hearts",
+//                  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
+//                new Text("and no redemptions",
+//                  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
+//                new Text("today",
+//                  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)),
+//              ]
+//            )
+//          )
+//        );
       }
     } else {
       return new Container(
