@@ -46,7 +46,7 @@ class _CongratsState extends State<Congrats> {
 	}
       );
     this.setState(() {
-      Map map = JSON.decode(response.body);
+      Map map = json.decode(response.body);
       _bonus = new Bonus(map["id"].toInt());
       widget.home.addHearts(widget.quiz.points);
     });

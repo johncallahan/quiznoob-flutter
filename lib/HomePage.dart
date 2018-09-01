@@ -52,7 +52,7 @@ class HomePageState extends State<HomePage> {
     if(response.statusCode == 200) {
       this.setState(() {
          quizzes.clear();
-	 Map map = JSON.decode(response.body);
+	 Map map = json.decode(response.body);
          List l = map["quizzes"];
          l.forEach((m) {
 	   Quiz q = new Quiz(m["id"].toInt(), m["name"], m["description"], m["numquestions"], m["points"].toInt());

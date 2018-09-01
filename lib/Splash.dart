@@ -44,7 +44,7 @@ class _SplashState extends State<Splash> {
       );
       if(response.statusCode == 200) {
         this.setState(() {
-           Map map = JSON.decode(response.body);
+           Map map = json.decode(response.body);
   	 _user = new User(map["id"].toInt(), map["name"], map["hearts"].toInt());
         });
       }

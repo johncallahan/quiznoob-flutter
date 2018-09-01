@@ -48,7 +48,7 @@ class _OthersWidgetState extends State<OthersWidget> {
         if(mounted) {
           this.setState(() {
             _users.clear();
-            List list = JSON.decode(response.body);
+            List list = json.decode(response.body);
             list.forEach((u) {
               _users.add(new User(u["id"].toInt(), u["name"], u["hearts"].toInt()));
             });

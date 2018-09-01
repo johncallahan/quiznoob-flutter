@@ -67,7 +67,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         if(mounted) {
           this.setState(() {
             _redemptions.clear();
-            Map map = JSON.decode(response.body);
+            Map map = json.decode(response.body);
             _user = new User(map["id"].toInt(), map["name"], map["hearts"].toInt());
             List list = map["redemptions"];
             list.forEach((r) {

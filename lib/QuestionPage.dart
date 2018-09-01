@@ -62,7 +62,7 @@ class QuestionPageState extends State<QuestionPage> {
 	}
       );
     this.setState(() {
-      Map map = JSON.decode(response.body);
+      Map map = json.decode(response.body);
       question = new Question(map["id"].toInt(), map["name"], map["answer_id"].toInt(), map["imageurl"]);
       answers = new List();
       map["answers"].forEach((answer) {
@@ -82,7 +82,7 @@ class QuestionPageState extends State<QuestionPage> {
 	}
       );
     this.setState(() {
-      Map map = JSON.decode(response.body);
+      Map map = json.decode(response.body);
       _attempt = new Attempt(map["id"].toInt(),map["result"],map["answer_id"]);
       answers.forEach((a) {
 	if(a.id == question.answer_id) {

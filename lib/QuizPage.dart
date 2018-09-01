@@ -52,7 +52,7 @@ class QuizPageState extends State<QuizPage> {
 	}
       );
       this.setState(() {
-         Map map = JSON.decode(response.body);
+         Map map = json.decode(response.body);
 	 Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["points"].toInt());
 	 quiz.unattempted = new List<int>();
 	 map["unattempted"].forEach((n) {

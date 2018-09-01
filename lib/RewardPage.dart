@@ -52,7 +52,7 @@ class RewardPageState extends State<RewardPage> {
 	}	
     );
     this.setState(() {
-      Map map = JSON.decode(response.body);
+      Map map = json.decode(response.body);
       reward = new Reward(map["id"].toInt(), map["name"], map["cost"].toInt(), map["description"]);
       _hearts = map["hearts"].toInt();
     });
@@ -67,11 +67,11 @@ class RewardPageState extends State<RewardPage> {
 	}
       );
     if(response.statusCode == 201) {
-      Map map = JSON.decode(response.body);
+      Map map = json.decode(response.body);
       redemption = new Redemption(map["id"].toInt(),map["reward"]["name"],map["cost"].toInt(),map["created_at"]);
       widget.rewards.setHearts(map["hearts"].toInt());
     } else {
-      Map map = JSON.decode(response.body);
+      Map map = json.decode(response.body);
       print("${map['message']}");
     }
   }

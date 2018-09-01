@@ -50,7 +50,7 @@ class SubjectPageState extends State<Subjects> {
     );
     if (response.statusCode == 200) {
       this.setState(() {
-        Map map = JSON.decode(response.body);
+        Map map = json.decode(response.body);
 	List l = map["subjects"];
 	_hearts = map["hearts"];
         l.forEach((m) {

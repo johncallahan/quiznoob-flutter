@@ -52,7 +52,7 @@ class RewardsPageState extends State<RewardsPage> {
     );
     this.setState(() {
       rewards.clear();
-      Map map = JSON.decode(response.body);
+      Map map = json.decode(response.body);
       List l = map["rewards"];
       this.setHearts(map["hearts"]);
       l.forEach((m) {
