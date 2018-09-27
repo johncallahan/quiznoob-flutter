@@ -35,7 +35,8 @@ class _SplashState extends State<Splash> {
   }
 
   Future<Null> getData() async {
-    http.Response response = await http.post(
+    if(_url != null) {
+      http.Response response = await http.post(
       Uri.encodeFull("${_url}/api/user.json"),
         body: {"access_token": _accessToken},
         headers: {
@@ -48,6 +49,7 @@ class _SplashState extends State<Splash> {
   	 _user = new User(map["id"].toInt(), map["name"], map["hearts"].toInt());
         });
       }
+    }
   }
 
   @override
