@@ -102,21 +102,22 @@ class HomePageState extends State<HomePage> {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.title),
-	  backgroundColor: Colors.green,
+	        backgroundColor: Colors.green,
           actions: <Widget>[
-	    new FlatButton(
-	      child: new Row(
-	        children: <Widget>[
-	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-	      ]),
-	      onPressed: (() {
-	        Navigator.pop(context);
-	        Navigator.push(context, new MaterialPageRoute(
-		  builder: (BuildContext context) => new RewardsPage(widget.root),
-		  ));
+	          new FlatButton(
+	            child: new Row(
+	              children: <Widget>[
+	                new Icon(Icons.favorite, color: Colors.red),
+	                new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	              ]
+              ),
+	            onPressed: (() {
+	              Navigator.pop(context);
+	              Navigator.push(context, new MaterialPageRoute(
+		              builder: (BuildContext context) => new RewardsPage(widget.root),
+		            ));
               }),
-	    ),
+	          ),
           ]
         ),
         body: new RefreshIndicator(
@@ -124,8 +125,8 @@ class HomePageState extends State<HomePage> {
           onRefresh: _handleRefresh,
           child: new ListView(
             children: quizzes.map((Quiz quiz) {
-	      return new QuizListItem(quiz,this);
-	    }).toList()
+	            return new QuizListItem(quiz,this);
+	          }).toList()
           )
         )
       );
@@ -137,11 +138,11 @@ class HomePageState extends State<HomePage> {
         body: new Container(
           child: new Center(
             child: new Column(
-	      mainAxisAlignment: MainAxisAlignment.center,
-	      children: <Widget>[
-	        new Icon(Icons.favorite),
-	        new Text("Sorry, no '${widget.title}' quizzes!"),
-	      ]
+	            mainAxisAlignment: MainAxisAlignment.center,
+	            children: <Widget>[
+	              new Icon(Icons.favorite),
+	              new Text("Sorry, no '${widget.title}' quizzes!"),
+	            ]
             )
           )
         )
@@ -149,4 +150,3 @@ class HomePageState extends State<HomePage> {
     }
   }
 }
-

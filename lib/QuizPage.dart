@@ -75,50 +75,50 @@ class QuizPageState extends State<QuizPage> {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.quiz.name),
-	  backgroundColor: Colors.green,
+	        backgroundColor: Colors.green,
           actions: <Widget>[
-	    new FlatButton(
-	      child: new Row(
-	        children: <Widget>[
-	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-	      ]),
-	      onPressed: (() {
-	        Navigator.pop(context);
-	        Navigator.pushReplacement(context, new MaterialPageRoute(
-		  builder: (BuildContext context) => new RewardsPage(widget.home.getRoot()),
-		  ));
-              }),
-	    ),
+	          new FlatButton(
+	            child: new Row(
+	              children: <Widget>[
+	                new Icon(Icons.favorite, color: Colors.red),
+	                new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	              ]),
+	              onPressed: (() {
+	                Navigator.pop(context);
+	                Navigator.pushReplacement(context, new MaterialPageRoute(
+		                builder: (BuildContext context) => new RewardsPage(widget.home.getRoot()),
+		              ));
+                }),
+	          ),
           ]
         ),
         body: new Container(
           child: new Center(
             child: new Column(
-	      mainAxisAlignment: MainAxisAlignment.center,
-	      children: <Widget>[
-	        new Text("Ready...",
-		  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
-		),
-	        new Text("Set...",
-		  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
-		),
-	        new Text("Go!",
-		  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
-		),
-	        new IconButton(
-		  icon: new Icon(Icons.directions_run),
-		  tooltip: 'Start',
-		  iconSize: 70.0,
-		  onPressed: () {
-		    Navigator.pushReplacement(context, new MaterialPageRoute(
-		      builder: (BuildContext context) => new QuestionPage(widget.quiz, widget.home),
-		    ));
-		  }
-		),
-	        new Text("${widget.quiz.unattempted.length}/${widget.quiz.numquestions} questions left"),
-	        new Text("Click icon to start the quiz!"),
-	      ]
+	            mainAxisAlignment: MainAxisAlignment.center,
+	            children: <Widget>[
+	              new Text("Ready...",
+		              style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
+		            ),
+	              new Text("Set...",
+		              style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
+		            ),
+	              new Text("Go!",
+		              style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
+		            ),
+	              new IconButton(
+		              icon: new Icon(Icons.directions_run),
+		              tooltip: 'Start',
+		              iconSize: 70.0,
+		              onPressed: () {
+		                Navigator.pushReplacement(context, new MaterialPageRoute(
+		                  builder: (BuildContext context) => new QuestionPage(widget.quiz, widget.home),
+		                ));
+		              }
+		            ),
+	              new Text("${widget.quiz.unattempted.length}/${widget.quiz.numquestions} questions left"),
+	              new Text("Click icon to start the quiz!"),
+	            ]
             )
           )
         )
@@ -131,11 +131,11 @@ class QuizPageState extends State<QuizPage> {
         body: new Container(
           child: new Center(
             child: new Column(
-	      mainAxisAlignment: MainAxisAlignment.center,
-	      children: <Widget>[
-	        new Icon(Icons.favorite),
-	        new Text("Sorry, no questions!"),
-	      ]
+	            mainAxisAlignment: MainAxisAlignment.center,
+	            children: <Widget>[
+	              new Icon(Icons.favorite),
+	              new Text("Sorry, no questions!"),
+	            ]
             )
           )
         )

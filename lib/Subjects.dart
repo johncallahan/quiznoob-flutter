@@ -84,28 +84,28 @@ class SubjectPageState extends State<Subjects> {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text("Subjects"),
-	  backgroundColor: Colors.green,
+	        backgroundColor: Colors.green,
           actions: <Widget>[
-	    new FlatButton(
-	      child: new Row(
-	        children: <Widget>[
-	          new Icon(Icons.favorite, color: Colors.red),
-	          new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-	      ]),
-	      onPressed: (() {
-	        Navigator.push(context, new MaterialPageRoute(
-		  builder: (BuildContext context) => new RewardsPage(this),
-		  ));
-              }),
-	    ),
-	    new IconButton(
-   	      icon: new Icon(Icons.settings),
-	      tooltip: 'Settings',
-	      onPressed: () {
-	        Navigator.pushReplacement(context, new MaterialPageRoute(
-	          builder: (BuildContext context) => new AppSettings(),
-                ));
-	      }
+	          new FlatButton(
+	            child: new Row(
+	              children: <Widget>[
+	                new Icon(Icons.favorite, color: Colors.red),
+	                new Text("${_hearts}", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+	              ]),
+	              onPressed: (() {
+	                Navigator.push(context, new MaterialPageRoute(
+		                builder: (BuildContext context) => new RewardsPage(this),
+		              ));
+                }),
+	            ),
+	            new IconButton(
+   	            icon: new Icon(Icons.settings),
+	              tooltip: 'Settings',
+	              onPressed: () {
+	                Navigator.pushReplacement(context, new MaterialPageRoute(
+	                  builder: (BuildContext context) => new AppSettings(),
+                  ));
+	              }
             )
           ]
         ),
@@ -114,8 +114,8 @@ class SubjectPageState extends State<Subjects> {
           onRefresh: _handleRefresh,
           child: new ListView(
             children: subjects.map((Subject subject) {
-	      return new SubjectsListItem(subject, this);
-	    }).toList()
+	            return new SubjectsListItem(subject, this);
+	          }).toList()
           )
         )
       );
@@ -123,37 +123,37 @@ class SubjectPageState extends State<Subjects> {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text("Subjects"),
-	  backgroundColor: Colors.green,
+	        backgroundColor: Colors.green,
           actions: <Widget>[
-	    new IconButton(
-   	      icon: new Icon(Icons.settings),
-	      tooltip: 'Settings',
-	      onPressed: () {
-	        Navigator.pushReplacement(context, new MaterialPageRoute(
-	          builder: (BuildContext context) => new AppSettings(),
+	          new IconButton(
+   	          icon: new Icon(Icons.settings),
+	            tooltip: 'Settings',
+	            onPressed: () {
+	              Navigator.pushReplacement(context, new MaterialPageRoute(
+	                builder: (BuildContext context) => new AppSettings(),
                 ));
-	      }
+	            }
             )
           ]
         ),
         body: new Container(
           child: new Center(
             child: new Column(
-	      mainAxisAlignment: MainAxisAlignment.center,
-	      children: <Widget>[
-	        new IconButton(
-	          icon: new Icon(Icons.favorite, color: Colors.red),
-		  iconSize: 70.0,
-		  onPressed: () {
+	            mainAxisAlignment: MainAxisAlignment.center,
+	            children: <Widget>[
+	              new IconButton(
+	                icon: new Icon(Icons.favorite, color: Colors.red),
+		              iconSize: 70.0,
+		              onPressed: () {
                     Navigator.pushReplacement(context, new MaterialPageRoute(
-		      builder: (BuildContext context) => new AppSettings(),
-		    ));
-		  }
+		                  builder: (BuildContext context) => new AppSettings(),
+		                ));
+		              }
                 ),
-	        new Text("Welcome!"),
-		new Text("  "),
-		new Text('(no server found ... click the \u2764 to continue)'),
-	      ]
+	              new Text("Welcome!"),
+		            new Text("  "),
+		            new Text('(no server found ... click the \u2764 to continue)'),
+	            ]
             )
           )
         )

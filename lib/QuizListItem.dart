@@ -26,39 +26,39 @@ class QuizListItem extends StatelessWidget {
               ),
               trailing: new Container(
                   child: new Row(children: [
-		    new CircleAvatar(
+		                new CircleAvatar(
                       backgroundColor: Colors.orange.shade800,
                       child: new Text("${quiz.points}"),
                     ),
-		    new Text(" "),
+		                new Text(" "),
                     new Text("${quiz.unattempted.length}/${quiz.numquestions}",
                       style: new TextStyle(fontWeight: FontWeight.w500)),
-                  ])),
-	      onTap: () {
-	        if(quiz.unattempted.length > 0) {
-  		  Navigator.push(context, new MaterialPageRoute(
-		    builder: (BuildContext context) => new QuizPage(quiz,home),
-		  ));
-		} else {
-		  showDialog<Null>(
-		    context: context,
+                  ])
+              ),
+	            onTap: () {
+	              if(quiz.unattempted.length > 0) {
+  		            Navigator.push(context, new MaterialPageRoute(
+		                builder: (BuildContext context) => new QuizPage(quiz,home),
+		              ));
+		            } else {
+		              showDialog<Null>(
+		                context: context,
                     child: new AlertDialog(
-		      title: const Text('No more tries today'),
-		      content: const Text('You can\'t take this quiz again until tomorrow'),
-		      actions: <Widget>[
-		        new FlatButton(
-			  child: const Text('GOT IT!'),
-			    onPressed: () { Navigator.of(context).pop(); }
-			    )]
+		                  title: const Text('No more tries today'),
+		                  content: const Text('You can\'t take this quiz again until tomorrow'),
+		                  actions: <Widget>[
+		                    new FlatButton(
+			                    child: const Text('GOT IT!'),
+			                    onPressed: () { Navigator.of(context).pop(); }
+			                  )
+                      ]
                     )
-		  );
-	        }
+		              );
+	              }
               }
-	    ))
-	  ]
-	));
+	          )
+        )
+	    ])
+    );
   }
 }
-
-
-
