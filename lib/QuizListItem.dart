@@ -25,7 +25,9 @@ class QuizListItem extends StatelessWidget {
                 color: Colors.blue[500],
               ),
               trailing: new Container(
-                  child: new Row(children: [
+                child: new Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
 		                new CircleAvatar(
                       backgroundColor: Colors.orange.shade800,
                       child: new Text("${quiz.points}"),
@@ -33,7 +35,8 @@ class QuizListItem extends StatelessWidget {
 		                new Text(" "),
                     new Text("${quiz.unattempted.length}/${quiz.numquestions}",
                       style: new TextStyle(fontWeight: FontWeight.w500)),
-                  ])
+                  ]
+                )
               ),
 	            onTap: () {
 	              if(quiz.unattempted.length > 0) {
