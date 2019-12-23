@@ -1,4 +1,4 @@
-package com.zrails.quiznoob.quiznoob;
+package com.zrails.qiznoob;
 
 import android.os.Bundle;
 

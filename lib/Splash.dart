@@ -58,27 +58,27 @@ class _SplashState extends State<Splash> {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text("Welcome!"),
-	  backgroundColor: Colors.green,
+	        backgroundColor: Colors.green,
         ),
         body: new Container(
           child: new Center(
             child: new Column(
-	      mainAxisAlignment: MainAxisAlignment.center,
-	      children: <Widget>[
-	        new IconButton(
-	          icon: new Icon(Icons.favorite, color: Colors.red),
-		  iconSize: 70.0,
-		  onPressed: () {
+	            mainAxisAlignment: MainAxisAlignment.center,
+	            children: <Widget>[
+	              new IconButton(
+	                icon: new Icon(Icons.favorite, color: Colors.red),
+		              iconSize: 70.0,
+		              onPressed: () {
                     Navigator.pushReplacement(context, new MaterialPageRoute(
-		      builder: (BuildContext context) => new Subjects(),
-		    ));
-		  }
+		                  builder: (BuildContext context) => new Subjects(),
+		                ));
+		              }
                 ),
-	        new Text("Welcome ${_user.name}!",
-		  style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
-		),
-		new Text("(click the heart to continue)")
-	      ]
+	              new Text("Welcome ${_user.name}!",
+		              style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 22.0)
+		            ),
+		            new Text("(click the heart to continue)")
+	            ]
             )
           )
         )
@@ -87,25 +87,25 @@ class _SplashState extends State<Splash> {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text("Welcome!"),
-	  backgroundColor: Colors.green,
+	        backgroundColor: Colors.green,
         ),
         body: new Container(
           child: new Center(
             child: new Column(
-	      mainAxisAlignment: MainAxisAlignment.center,
-	      children: <Widget>[
-	        new IconButton(
-	          icon: new Icon(Icons.favorite, color: Colors.red),
-		  iconSize: 70.0,
-		  onPressed: () {
+	            mainAxisAlignment: MainAxisAlignment.center,
+	            children: <Widget>[
+	              new IconButton(
+	                icon: new Icon(Icons.favorite, color: Colors.red),
+		              iconSize: 70.0,
+		              onPressed: () {
                     Navigator.pushReplacement(context, new MaterialPageRoute(
-		      builder: (BuildContext context) => new AppSettings(),
-		    ));
-		  }
+		                  builder: (BuildContext context) => new AppSettings(),
+		                ));
+		              }
                 ),
-	        new Text("Welcome!"),
-		new Text("(click the heart to continue)")
-	      ]
+	              new Text("Welcome!"),
+		            new Text("(click the heart to continue)")
+	            ]
             )
           )
         )

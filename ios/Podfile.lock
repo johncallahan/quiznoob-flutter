@@ -1,34 +1,142 @@
 PODS:
+  - Firebase/Core (6.12.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.1.5)
+  - Firebase/CoreOnly (6.12.0):
+    - FirebaseCore (= 6.3.3)
+  - firebase_core (0.0.1):
+    - Firebase/Core
+    - Flutter
+  - FirebaseAnalytics (6.1.5):
+    - FirebaseCore (~> 6.3)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleAppMeasurement (= 6.1.5)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (= 0.3.9011)
+  - FirebaseCore (6.3.3):
+    - FirebaseCoreDiagnostics (~> 1.0)
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+  - FirebaseCoreDiagnostics (1.1.1):
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleDataTransportCCTSupport (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+    - nanopb (~> 0.3.901)
+  - FirebaseCoreDiagnosticsInterop (1.1.0)
+  - FirebaseInstanceID (4.2.7):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
   - Flutter (1.0.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - GoogleAppMeasurement (6.1.5):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (= 0.3.9011)
+  - GoogleDataTransport (3.0.1)
+  - GoogleDataTransportCCTSupport (1.2.1):
+    - GoogleDataTransport (~> 3.0)
+    - nanopb (~> 0.3.901)
+  - GoogleUtilities/AppDelegateSwizzler (6.3.1):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.3.1)
+  - GoogleUtilities/Logger (6.3.1):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.3.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.3.1):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.3.1)"
+  - GoogleUtilities/Reachability (6.3.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.3.1):
+    - GoogleUtilities/Logger
+  - nanopb (0.3.9011):
+    - nanopb/decode (= 0.3.9011)
+    - nanopb/encode (= 0.3.9011)
+  - nanopb/decode (0.3.9011)
+  - nanopb/encode (0.3.9011)
   - path_provider (0.0.1):
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
+  - sqflite (0.0.1):
+    - Flutter
+    - FMDB (~> 2.7.2)
   - video_player (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - "firebase_core (from `/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.0+9/ios`)"
   - Flutter (from `/Users/jzcallahan/flutter/bin/cache/artifacts/engine/ios`)
-  - path_provider (from `/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/path_provider-0.4.1/ios`)
-  - shared_preferences (from `/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.4.3/ios`)
-  - video_player (from `/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/video_player-0.5.4/ios`)
+  - path_provider (from `/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/path_provider-1.3.0/ios`)
+  - "shared_preferences (from `/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.4+5/ios`)"
+  - "sqflite (from `/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/sqflite-1.1.6+5/ios`)"
+  - "video_player (from `/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/video_player-0.10.2+1/ios`)"
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - FMDB
+  trunk:
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
+    - FirebaseInstanceID
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
+    - GoogleUtilities
+    - nanopb
 
 EXTERNAL SOURCES:
+  firebase_core:
+    :path: "/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.0+9/ios"
   Flutter:
     :path: "/Users/jzcallahan/flutter/bin/cache/artifacts/engine/ios"
   path_provider:
-    :path: "/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/path_provider-0.4.1/ios"
+    :path: "/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/path_provider-1.3.0/ios"
   shared_preferences:
-    :path: "/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.4.3/ios"
+    :path: "/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.4+5/ios"
+  sqflite:
+    :path: "/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/sqflite-1.1.6+5/ios"
   video_player:
-    :path: "/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/video_player-0.5.4/ios"
+    :path: "/Users/jzcallahan/.pub-cache/hosted/pub.dartlang.org/video_player-0.10.2+1/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
-  path_provider: 09407919825bfe3c2deae39453b7a5b44f467873
-  shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
-  video_player: 906796a841943c8d370ac7c13b18039aa9b56498
+  Firebase: da031bc7012374e3bed17a6731b89327b29863b9
+  firebase_core: ae55ea92448ec8675d325da4db22cf3b4d58a54d
+  FirebaseAnalytics: 4e53a7eb7b76bc703c4d9239bc964545e9b23361
+  FirebaseCore: bcd6c112429249d7921e907d661e8955a3549e26
+  FirebaseCoreDiagnostics: af29e43048607588c050889d19204f4d7b758c9f
+  FirebaseCoreDiagnosticsInterop: e9b1b023157e3a2fc6418b5cb601e79b9af7b3a0
+  FirebaseInstanceID: ebd2ea79ee38db0cb5f5167b17a0d387e1cc7b6e
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  GoogleAppMeasurement: 037f46d1d8ae8b312720f1042585ab961a1289e3
+  GoogleDataTransport: 166f9b9f82cbf60a204e8fe2daa9db3e3ec1fb15
+  GoogleDataTransportCCTSupport: f6ab1962e9dc05ab1fb938b795e5b310209edeec
+  GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
+  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
+  shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
+  sqflite: ff1d9da63c06588cc8d1faf7256d741f16989d5a
+  video_player: 3964090a33353060ed7f58aa6427c7b4b208ec21
 
 PODFILE CHECKSUM: 351e02e34b831289961ec3558a535cbd2c4965d2
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

@@ -49,7 +49,7 @@ class RewardPageState extends State<RewardPage> {
       body: {"access_token": _accessToken},
       headers: {
         "Accept":"application/json"
-	}	
+	}
     );
     this.setState(() {
       Map map = json.decode(response.body);
@@ -72,7 +72,7 @@ class RewardPageState extends State<RewardPage> {
       widget.rewards.setHearts(map["hearts"].toInt());
     } else {
       Map map = json.decode(response.body);
-      print("${map['message']}");
+      print("${response.statusCode}");
     }
   }
 

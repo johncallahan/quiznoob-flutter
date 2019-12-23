@@ -49,17 +49,18 @@ class QuizPageState extends State<QuizPage> {
         body: {"access_token": _accessToken},
         headers: {
           "Accept":"application/json"
-	}
+	      }
       );
       this.setState(() {
-         Map map = json.decode(response.body);
-	 Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["points"].toInt());
-	 quiz.unattempted = new List<int>();
-	 map["unattempted"].forEach((n) {
-           quiz.unattempted.add(n);
-	 });
-	 _hearts = map["hearts"];
-      });
+        Map map = json.decode(response.body);
+	      Quiz quiz = new Quiz(map["id"].toInt(), map["name"], map["description"], map["numquestions"], map["points"].toInt());
+	      quiz.unattempted = new List<int>();
+	      map["unattempted"].forEach((n) {
+          quiz.unattempted.add(n);
+	      });
+	      _hearts = map["hearts"];
+      }
+    );
   }
 
   Future<Null> _handleRefresh() {
