@@ -46,7 +46,7 @@ class QuizListItem extends StatelessWidget {
 		            } else {
 		              showDialog<Null>(
 		                context: context,
-                    child: new AlertDialog(
+                    builder: (BuildContext context) => new AlertDialog(
 		                  title: const Text('No more tries today'),
 		                  content: const Text('You can\'t take this quiz again until tomorrow'),
 		                  actions: <Widget>[

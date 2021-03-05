@@ -34,7 +34,7 @@ class RewardsListItem extends StatelessWidget {
 		} else {
 		  showDialog<Null>(
 		    context: context,
-                    child: new AlertDialog(
+        builder: (BuildContext context) => new AlertDialog(
 		      title: const Text('Not enough hearts'),
 		      content: const Text('You don\'t have enough hearts'),
 		      actions: <Widget>[
@@ -51,6 +51,3 @@ class RewardsListItem extends StatelessWidget {
 	));
   }
 }
-
-
-

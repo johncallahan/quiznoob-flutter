@@ -2,6 +2,9 @@ name: quiznoob
 description: A new Flutter application.
 version: 1.0.0+1
 
+environment:
+  sdk: '>=2.10.0 <3.0.0' 
+
 dependencies:
   cached_network_image: "^2.0.0-rc"
   shared_preferences: "^0.5.4+5"
@@ -69,4 +72,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
-  
