@@ -43,7 +43,7 @@ class HomePageState extends State<HomePage> {
 
   Future<Null> getData() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/quizzes.json"),
+      Uri.parse("${_url}/api/quizzes.json"),
       body: widget.title == "All Quizzes" ? {"access_token": _accessToken} : {"access_token": _accessToken, "subject": widget.title},
       headers: {
         "Accept":"application/json"

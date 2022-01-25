@@ -38,7 +38,7 @@ class _OthersWidgetState extends State<OthersWidget> {
 
   Future<Null> getData() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/users.json"),
+      Uri.parse("${_url}/api/users.json"),
         body: {"access_token": _accessToken},
         headers: {
           "Accept":"application/json"

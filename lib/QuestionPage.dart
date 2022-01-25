@@ -55,7 +55,7 @@ class QuestionPageState extends State<QuestionPage> {
 
   Future<Null> getData() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/questions/${widget.quiz.unattempted[0]}.json"),
+      Uri.parse("${_url}/api/questions/${widget.quiz.unattempted[0]}.json"),
           body: {"access_token": _accessToken},
         headers: {
           "Accept":"application/json"
@@ -75,7 +75,7 @@ class QuestionPageState extends State<QuestionPage> {
 
   Future<Null> _makeAttempt() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/attempts.json"),
+      Uri.parse("${_url}/api/attempts.json"),
           body: {"access_token": _accessToken, "quiz_id": widget.quiz.id.toString(), "question_id": question.id.toString(), "answer_id": guess.id.toString()},
         headers: {
           "Accept":"application/json"

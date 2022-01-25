@@ -45,7 +45,7 @@ class RewardPageState extends State<RewardPage> {
 
   Future<Null> getData() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/rewards/${widget.reward.id}.json"),
+      Uri.parse("${_url}/api/rewards/${widget.reward.id}.json"),
       body: {"access_token": _accessToken},
       headers: {
         "Accept":"application/json"
@@ -60,7 +60,7 @@ class RewardPageState extends State<RewardPage> {
 
   Future<Null> _redeem() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/redemptions.json"),
+      Uri.parse("${_url}/api/redemptions.json"),
           body: {"access_token": _accessToken, "reward_id": reward.id.toString()},
         headers: {
           "Accept":"application/json"

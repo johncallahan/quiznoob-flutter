@@ -57,7 +57,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
   Future<Null> getData() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/user.json"),
+      Uri.parse("${_url}/api/user.json"),
         body: {"access_token": _accessToken},
         headers: {
           "Accept":"application/json"

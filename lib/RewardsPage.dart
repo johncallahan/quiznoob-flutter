@@ -44,7 +44,7 @@ class RewardsPageState extends State<RewardsPage> {
 
   Future<Null> getData() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/rewards.json"),
+      Uri.parse("${_url}/api/rewards.json"),
       body: {"access_token": _accessToken},
       headers: {
         "Accept":"application/json"

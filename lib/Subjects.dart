@@ -42,7 +42,7 @@ class SubjectPageState extends State<Subjects> {
     });
     if(_url != null && _accessToken != null) {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/subjects.json"),
+      Uri.parse("${_url}/api/subjects.json"),
       body: {"access_token": _accessToken},
       headers: {
         "Accept":"application/json"

@@ -39,7 +39,7 @@ class _CongratsState extends State<Congrats> {
 
   Future<Null> _collectBonus() async {
     http.Response response = await http.post(
-      Uri.encodeFull("${_url}/api/bonuses.json"),
+      Uri.parse("${_url}/api/bonuses.json"),
           body: {"access_token": _accessToken, "quiz_id": widget.quiz.id.toString()},
         headers: {
           "Accept":"application/json"
