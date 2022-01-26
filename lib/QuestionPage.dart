@@ -106,14 +106,14 @@ class QuestionPageState extends State<QuestionPage> {
         answer.color = Colors.purple;
       });
     }
-    visibility = true; 
+    visibility = true;
   }
 
   @override
   Widget build(BuildContext context) {
     if(question != null) {
       List<Widget> answerButtons = new List<Widget>();
-      
+
       int i = 0;
       answers.forEach((answer) {
         answerButtons.add(new Container(
@@ -145,7 +145,8 @@ class QuestionPageState extends State<QuestionPage> {
 	    ),
           ]
         ),
-        body: new Container(
+        body: new SingleChildScrollView(
+        child: new Container(
           child: new Center(
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -239,14 +240,15 @@ class QuestionPageState extends State<QuestionPage> {
               ]
 	    )
 	  )
-	)
+	))
       );
     } else {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.quiz.name),
         ),
-        body: new Container(
+        body: new SingleChildScrollView(
+         child: new Container(
           child: new Center(
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -254,7 +256,7 @@ class QuestionPageState extends State<QuestionPage> {
 	        new Icon(Icons.access_time),
 		new Text("loading ..."),
               ]
-	    )
+	    ))
 	  )
 	)
       );
